@@ -18,11 +18,11 @@ const timeTableSchema = new mongoose.Schema(
       required: true
     },
     start_time: {
-      type: Date,
+      type: String,
       required: true
     },
     end_time: {
-      type: Date,
+      type: String,
       required: true
     },
     school: {

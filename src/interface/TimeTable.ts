@@ -7,7 +7,7 @@ export interface ITimeTable extends CommonModal {
   class_id: IClass
   day_of_week: 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY'
   subject_id: ISubject
-  start_time: Date
-  end_time: Date
+  start_time: string
+  end_time: string
   school:ISchool
 }
