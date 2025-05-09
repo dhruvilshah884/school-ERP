@@ -17,7 +17,8 @@ const teacherSchema = new mongoose.Schema(
     },
     is_active: {
       type: Boolean,
-      required: true
+      default: true,
+
     },
     school: {
       type: mongoose.Schema.Types.ObjectId,
