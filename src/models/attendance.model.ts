@@ -21,6 +21,11 @@ const attendaceSchema = new mongoose.Schema(
       ref: 'Teacher',
       required: true
     },
+    class_id:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Class',
+      required: true
+    },
     school: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'School',
