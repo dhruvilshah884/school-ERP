@@ -22,6 +22,7 @@ export class AuthService {
     })
 
     const tokenData = await this.createToken({
+      _id: newUser._id,
       name: newUser.name,
       email: newUser.email,
       password: '',
@@ -44,7 +45,9 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new Error('Invalid password')
     }
+    console.log(user._id)
     const tokenData = await this.createToken({
+      _id: user._id,
       name: user.name,
       email: user.email,
       password: '',
@@ -98,6 +101,12 @@ export class AuthService {
     if (!user) {
       throw new Error('User not found')
     }
+    if (!user.isVerified) {
+      throw new Error('User not verified')
+    }
+    if(user.password === data.password){
+      throw new Error('New password should be different from old password')
+    }
     const hashedPassword = await hash(data.password, 10)
     user.password = hashedPassword
     await user.save()
@@ -108,5 +117,12 @@ export class AuthService {
     const secretKey: any = process.env.SECRET_KEY
 
     return { token: jwt.sign(dataStoredInToken, secretKey) }
+  }
+  public async me(id: string): Promise<any> {
+    const user = await this.user.findById(id).populate('school')
+    if (!user) {
+      throw new Error('User not found')
+    }
+    return user
   }
 }

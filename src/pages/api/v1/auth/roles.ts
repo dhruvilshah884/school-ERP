@@ -1,3 +1,5 @@
+import authMiddleware from '@/middleware/authCheckMiddleware'
+import { dbConnectMiddleware } from '@/middleware/dbConnectMiddleware'
 import {AuthService} from '@/services/auth.service'
 import { NextApiRequest, NextApiResponse } from 'next'
 import nextConnect from 'next-connect'
@@ -5,6 +7,8 @@ import nextConnect from 'next-connect'
 const authService = new AuthService()
 
 export default nextConnect()
+  .use(dbConnectMiddleware)
+  .use(authMiddleware)
   .get(async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const user = await authService.roles(req.body.role)

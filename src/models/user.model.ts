@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema(
     },
     profile_image: {
       type: String,
-      required: true
+      required: false
     },
     school: {
       type: mongoose.Schema.Types.ObjectId,
