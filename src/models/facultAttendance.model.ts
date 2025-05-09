@@ -24,5 +24,5 @@ const facultAttendanceSchema = new mongoose.Schema(
   },
   { timestamps: true, versionKey: false }
 )
-export const facultAttendance =
+export const facultAttendanceModel =
   mongoose.models.facultAttendance || mongoose.model('facultAttendance', facultAttendanceSchema)
