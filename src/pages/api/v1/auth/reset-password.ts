@@ -10,7 +10,7 @@ export default nextConnect()
     try {
       const data: IUser = req.body
       const user = await authService.resetPassword(data)
-      res.status(200).json(user)
+      res.status(200).json({message:"Password reset successfully",user})
     } catch (error:any) {
       res.status(500).json({ error: error.message })
     }

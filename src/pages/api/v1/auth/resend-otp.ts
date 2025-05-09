@@ -8,7 +8,7 @@ export default nextConnect()
   .post(async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const user = await authService.resendOtp(req.body.id)
-      res.status(200).json(user)
+      res.status(200).json({message:"OTP sent successfully",user})
     } catch (error:any) {
       res.status(500).json({ error: error.message })
     }
