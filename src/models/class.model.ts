@@ -7,6 +7,11 @@ const classSchema = new mongoose.Schema(
     },
     acadamic_year: {
       type: String
+    },
+    school: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'School',
+      required: true
     }
   },
   { timestamps: true, versionKey: false }

@@ -36,7 +36,20 @@ const UserSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'School',
       required: true
+    },
+    verfication_otp:{
+      type: String,
+      required: false
+    },
+    otp_expiry_time:{
+      type: Date,
+      required: false
+    },
+    isVerified:{
+      type: Boolean,
+      default: false
     }
+
   },
   {
     timestamps: true,

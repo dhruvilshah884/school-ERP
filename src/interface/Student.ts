@@ -1,5 +1,6 @@
 import { IClass } from './Class'
 import { CommonModal } from './CommonModel'
+import { ISchool } from './School'
 import { IUser } from './User'
 
 export interface IStudent extends CommonModal {
@@ -14,4 +15,5 @@ export interface IStudent extends CommonModal {
   guardian_contact: string
   medical_history: string
   is_active: boolean
+  school:ISchool
 }

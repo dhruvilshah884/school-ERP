@@ -19,6 +19,11 @@ const examSchema = new mongoose.Schema(
       type: String,
       enum: ['DAILY', 'WEEKLY', 'MONTHLY', 'QUARTERLY', 'HALFYEARLY', 'YEARLY', 'BOARD', 'OTHER'],
       required: true
+    },
+    school: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'School',
+      required: true
     }
   },
   { timestamps: true, versionKey: false }

@@ -8,6 +8,9 @@ export interface IUser extends CommonModal {
   phone: string
   gender: string
   role: 'ADMIN' | 'PRINCIPAL' | 'TEACHER' | 'PARENT' | 'STUDENT' | 'RECEPTION' | 'SECURITY'
-  profile_image: string
+  profile_image?: string
   school: ISchool
+  verfication_otp?: string
+  otp_expiry_time?: Date
+  isVerified?: boolean
 }

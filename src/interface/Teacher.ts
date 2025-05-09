@@ -1,4 +1,5 @@
 import { CommonModal } from './CommonModel'
+import { ISchool } from './School'
 import { IUser } from './User'
 
 export interface ITeacher extends CommonModal {
@@ -6,4 +7,5 @@ export interface ITeacher extends CommonModal {
   designation: string
   subject_specialization: string
   is_active: boolean
+  school:ISchool
 }

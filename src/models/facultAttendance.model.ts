@@ -20,6 +20,11 @@ const facultAttendanceSchema = new mongoose.Schema(
       type: String,
       enum: ['PRESENT', 'ABSENT', 'LEAVE'],
       required: true
+    },
+    school: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'School',
+      required: true
     }
   },
   { timestamps: true, versionKey: false }

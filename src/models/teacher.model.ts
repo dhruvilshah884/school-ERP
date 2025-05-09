@@ -18,6 +18,11 @@ const teacherSchema = new mongoose.Schema(
     is_active: {
       type: Boolean,
       required: true
+    },
+    school: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'School',
+      required: true
     }
   },
   { timestamps: true, versionKey: false }

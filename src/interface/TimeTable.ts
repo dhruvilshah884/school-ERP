@@ -1,5 +1,6 @@
 import { IClass } from './Class'
 import { CommonModal } from './CommonModel'
+import { ISchool } from './School'
 import { ISubject } from './Subject'
 
 export interface ITimeTable extends CommonModal {
@@ -8,4 +9,5 @@ export interface ITimeTable extends CommonModal {
   subject_id: ISubject
   start_time: Date
   end_time: Date
+  school:ISchool
 }

@@ -47,6 +47,11 @@ const studentSchema = new mongoose.Schema(
     is_active: {
       type: Boolean,
       default: true
+    },
+    school: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'School',
+      required: true
     }
   },
   { timestamps: true, versionKey: false }

@@ -24,6 +24,11 @@ const timeTableSchema = new mongoose.Schema(
     end_time: {
       type: Date,
       required: true
+    },
+    school: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'School',
+      required: true
     }
   },
   {
