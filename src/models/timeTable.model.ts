@@ -29,6 +29,10 @@ const timeTableSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'School',
       required: true
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   },
   {

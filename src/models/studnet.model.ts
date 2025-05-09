@@ -4,7 +4,7 @@ const studentSchema = new mongoose.Schema(
   {
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
-      red: 'User',
+      ref: 'User',
       required: true
     },
     admission_number: {
@@ -13,7 +13,7 @@ const studentSchema = new mongoose.Schema(
     },
     class_id: {
       type: mongoose.Schema.Types.ObjectId,
-      red: 'Class',
+      ref: 'Class',
       required: true
     },
     division: {
@@ -52,6 +52,10 @@ const studentSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'School',
       required: true
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true, versionKey: false }

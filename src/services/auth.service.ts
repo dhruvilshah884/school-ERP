@@ -37,7 +37,7 @@ export class AuthService {
     }
   }
   public async login(data: IUser): Promise<any> {
-    const user = await this.user.findOne({ email: data.email })
+    const user = await this.user.findOne({ email: data.email, isDeleted: false })
     if (!user) {
       throw new Error('User not found')
     }
@@ -62,7 +62,7 @@ export class AuthService {
     }
   }
   public async roles(role: string): Promise<any> {
-    const user = await this.user.findOne({ role })
+    const user = await this.user.findOne({ role, isDeleted: false })
     if (!user) {
       throw new Error('User not found')
     }
@@ -97,14 +97,14 @@ export class AuthService {
     return user
   }
   public async resetPassword(data: IUser): Promise<any> {
-    const user = await this.user.findOne({ email: data.email })
+    const user = await this.user.findOne({ email: data.email, isDeleted: false })
     if (!user) {
       throw new Error('User not found')
     }
     if (!user.isVerified) {
       throw new Error('User not verified')
     }
-    if(user.password === data.password){
+    if (user.password === data.password) {
       throw new Error('New password should be different from old password')
     }
     const hashedPassword = await hash(data.password, 10)

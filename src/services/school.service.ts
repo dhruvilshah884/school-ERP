@@ -11,7 +11,7 @@ export class SchoolService {
     return school
   }
   public async getSchools(): Promise<ISchool[]> {
-    const schools = await this.school.find()
+    const schools = await this.school.find({ isDeleted: false })
     return schools
   }
   public async getSchoolById(id: string): Promise<ISchool> {
@@ -23,7 +23,7 @@ export class SchoolService {
     return school
   }
   public async deleteSchool(id: string): Promise<ISchool> {
-    const school = await this.school.findByIdAndDelete(id)
+    const school = await this.school.findByIdAndUpdate(id, { isDeleted: true }, { new: true })
     return school
   }
 }

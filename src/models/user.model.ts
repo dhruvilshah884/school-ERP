@@ -37,19 +37,22 @@ const UserSchema = new mongoose.Schema(
       ref: 'School',
       required: true
     },
-    verfication_otp:{
+    verfication_otp: {
       type: String,
       required: false
     },
-    otp_expiry_time:{
+    otp_expiry_time: {
       type: Date,
       required: false
     },
-    isVerified:{
+    isVerified: {
+      type: Boolean,
+      default: false
+    },
+    isDeleted: {
       type: Boolean,
       default: false
     }
-
   },
   {
     timestamps: true,

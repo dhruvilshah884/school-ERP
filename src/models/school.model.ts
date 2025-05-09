@@ -21,6 +21,10 @@ const SchoolSchema = new mongoose.Schema(
     logo: {
       type: String,
       required: false
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   },
   {
