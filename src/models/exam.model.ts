@@ -8,7 +8,7 @@ const examSchema = new mongoose.Schema(
     },
     class_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'class',
+      ref: 'Class',
       required: true
     },
     date: {
