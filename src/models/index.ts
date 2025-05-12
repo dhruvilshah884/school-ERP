@@ -15,6 +15,11 @@ import { feePaymentModel } from './feePayment.model'
 import { assignmentModel } from './assignment.model'
 import { leaveModel } from './leave.model'
 import { recheckingModel } from './rechecking.model'
+import { gatePass } from './gatePass.model'
+import { Notification } from './notification.model'
+import { Event } from './event.model'
+import { ConsentForm } from './consentForm.model'
+import { FeedBack } from './feedBack.model'
 
 export const models = {
   School: SchoolModel,
@@ -33,5 +38,10 @@ export const models = {
   FeePayment: feePaymentModel,
   Assignment: assignmentModel,
   Leave: leaveModel,
-  Rechecking: recheckingModel
+  Rechecking: recheckingModel,
+  GatePass: gatePass,
+  Notification: Notification,
+  Event: Event,
+  ConsentForm: ConsentForm,
+  FeedBack: FeedBack
 }
