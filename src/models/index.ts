@@ -9,6 +9,11 @@ import { timeTableModel } from './timeTable.model'
 import { attendanceModel } from './attendance.model'
 import { facultAttendanceModel } from './facultAttendance.model'
 import { examModel } from './exam.model'
+import { marksModel } from './marks.model'
+import { feeStructureModel } from './feeStructure.model'
+import { feePaymentModel } from './feePayment.model'
+import { assignmentModel } from './assignment.model'
+import { leaveModel } from './leave.model'
 
 export const models = {
   School: SchoolModel,
@@ -21,5 +26,10 @@ export const models = {
   TimeTable: timeTableModel,
   Attendance: attendanceModel,
   FacultAttendance: facultAttendanceModel,
-  Exam: examModel
+  Exam: examModel,
+  Marks: marksModel,
+  FeeStructure: feeStructureModel,
+  FeePayment: feePaymentModel,
+  Assignment: assignmentModel,
+  Leave: leaveModel
 }
