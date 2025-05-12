@@ -20,6 +20,10 @@ const subjectSchema = new mongoose.Schema(
     isDeleted: {
       type: Boolean,
       default: false
+    },
+    name:{
+      type: String,
+      required: true
     }
   },
   { timestamps: true, versionKey: false }

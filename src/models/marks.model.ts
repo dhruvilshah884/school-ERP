@@ -27,7 +27,7 @@ const markSchema = new mongoose.Schema({
     },
     entered_by: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Teacher'
+        ref: 'User'
     },
     is_locked: {
         type: Boolean,
