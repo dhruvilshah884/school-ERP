@@ -6,6 +6,14 @@ const leaveSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Student'
     },
+    class_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Class'
+    },
+    school: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'School'
+    },
     requested_by: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
@@ -26,6 +34,14 @@ const leaveSchema = new mongoose.Schema(
       type: String,
       enum: ['PENDING', 'APPROVED', 'REJECTED'],
       default: 'PENDING'
+    },
+    approved_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    rejected_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
     },
     attachment_url: {
       type: String,
