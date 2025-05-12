@@ -16,7 +16,7 @@ const assignmentSchema = new mongoose.Schema(
     },
     teacher_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Teacher'
+      ref: 'User'
     },
     title: {
       type: String,
