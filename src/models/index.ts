@@ -14,6 +14,7 @@ import { feeStructureModel } from './feeStructure.model'
 import { feePaymentModel } from './feePayment.model'
 import { assignmentModel } from './assignment.model'
 import { leaveModel } from './leave.model'
+import { recheckingModel } from './rechecking.model'
 
 export const models = {
   School: SchoolModel,
@@ -31,5 +32,6 @@ export const models = {
   FeeStructure: feeStructureModel,
   FeePayment: feePaymentModel,
   Assignment: assignmentModel,
-  Leave: leaveModel
+  Leave: leaveModel,
+  Rechecking: recheckingModel
 }
