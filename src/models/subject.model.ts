@@ -28,4 +28,4 @@ const subjectSchema = new mongoose.Schema(
   },
   { timestamps: true, versionKey: false }
 )
-export const subjectModel = mongoose.models.Subject || mongoose.model('Subject', subjectSchema)
+export const SubjectModel = mongoose.models.Subject || mongoose.model('Subject', subjectSchema)

@@ -34,4 +34,4 @@ const feePaymentSchema = new mongoose.Schema({
       default: false
     }
 }, { timestamps: true , versionKey: false })
-export const feePaymentModel = mongoose.models.FeePayment || mongoose.model('FeePayment', feePaymentSchema)
+export const FeePaymentModel = mongoose.models.FeePayment || mongoose.model('FeePayment', feePaymentSchema)

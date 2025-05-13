@@ -28,4 +28,4 @@ const concentSchema = new mongoose.Schema(
   },
   { timestamps: true, versionKey: false }
 )
-export const Concent = mongoose.models.Concent || mongoose.model('Concent', concentSchema)
+export const ConcentModel = mongoose.models.Concent || mongoose.model('Concent', concentSchema)

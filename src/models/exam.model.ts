@@ -33,4 +33,4 @@ const examSchema = new mongoose.Schema(
   { timestamps: true, versionKey: false }
 )
 
-export const examModel = mongoose.models.Exam || mongoose.model('Exam', examSchema)
+export const ExamModel = mongoose.models.Exam || mongoose.model('Exam', examSchema)

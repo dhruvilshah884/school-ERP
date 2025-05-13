@@ -38,4 +38,4 @@ const markSchema = new mongoose.Schema({
       default: false
     }
 }, { timestamps: true , versionKey: false })
-export const marksModel = mongoose.models.Marks || mongoose.model('Marks', markSchema)
+export const MarksModel = mongoose.models.Marks || mongoose.model('Marks', markSchema)

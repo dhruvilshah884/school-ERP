@@ -41,4 +41,4 @@ const attendaceSchema = new mongoose.Schema(
     versionKey: false
   }
 )
-export const attendanceModel = mongoose.models.Attendance || mongoose.model('Attendance', attendaceSchema)
+export const AttendanceModel = mongoose.models.Attendance || mongoose.model('Attendance', attendaceSchema)

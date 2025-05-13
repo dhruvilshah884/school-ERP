@@ -32,4 +32,4 @@ const teacherSchema = new mongoose.Schema(
   },
   { timestamps: true, versionKey: false }
 )
-export const teacherModel = mongoose.models.Teacher || mongoose.model('Teacher', teacherSchema)
+export const TeacherModel = mongoose.models.Teacher || mongoose.model('Teacher', teacherSchema)

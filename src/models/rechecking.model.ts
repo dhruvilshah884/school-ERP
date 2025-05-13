@@ -40,4 +40,4 @@ const recheckinhSchema = new mongoose.Schema(
     versionKey: false
   }
 )
-export const recheckingModel = mongoose.models.Rechecking || mongoose.model('Rechecking', recheckinhSchema)
+export const RecheckingModel = mongoose.models.Rechecking || mongoose.model('Rechecking', recheckinhSchema)

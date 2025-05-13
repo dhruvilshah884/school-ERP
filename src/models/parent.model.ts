@@ -24,4 +24,4 @@ const parentSchema = new mongoose.Schema(
   },
   { timestamps: true, versionKey: false }
 )
-export const parentModel = mongoose.models.Parent || mongoose.model('Parent', parentSchema)
+export const ParentModel = mongoose.models.Parent || mongoose.model('Parent', parentSchema)

@@ -31,4 +31,4 @@ const notificationSchema = new mongoose.Schema({
     required: true
   }
 })
-export const Notification = mongoose.models.Notification || mongoose.model('Notification', notificationSchema)
+export const NotificationModel = mongoose.models.Notification || mongoose.model('Notification', notificationSchema)

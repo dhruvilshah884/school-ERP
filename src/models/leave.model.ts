@@ -54,4 +54,4 @@ const leaveSchema = new mongoose.Schema(
   },
   { timeStamps: true, versionKey: false }
 )
-export const leaveModel = mongoose.models.Leave || mongoose.model('Leave', leaveSchema)
+export const LeaveModel = mongoose.models.Leave || mongoose.model('Leave', leaveSchema)

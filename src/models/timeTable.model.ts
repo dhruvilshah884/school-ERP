@@ -40,4 +40,4 @@ const timeTableSchema = new mongoose.Schema(
     versionKey: false
   }
 )
-export const timeTableModel = mongoose.models.TimeTable || mongoose.model('TimeTable', timeTableSchema)
+export const TimeTableModel = mongoose.models.TimeTable || mongoose.model('TimeTable', timeTableSchema)

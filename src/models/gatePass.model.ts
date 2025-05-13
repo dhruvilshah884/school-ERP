@@ -38,4 +38,4 @@ const gatePassSchema = new mongoose.Schema(
   },
   { timestamps: true, versionKey: false }
 )
-export const gatePass = mongoose.models.gatePass || mongoose.model('gatePass', gatePassSchema)
+export const GatePassModel = mongoose.models.gatePass || mongoose.model('gatePass', gatePassSchema)

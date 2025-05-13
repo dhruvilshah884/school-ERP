@@ -1,47 +1,57 @@
 import { SchoolModel } from './school.model'
 import { UserModel } from './user.model'
-import { studentModel } from './studnet.model'
-import { parentModel } from './parent.model'
-import { teacherModel } from './teacher.model'
-import { classModel } from './class.model'
-import { subjectModel } from './subject.model'
-import { timeTableModel } from './timeTable.model'
-import { attendanceModel } from './attendance.model'
-import { facultAttendanceModel } from './facultAttendance.model'
-import { examModel } from './exam.model'
-import { marksModel } from './marks.model'
-import { feeStructureModel } from './feeStructure.model'
-import { feePaymentModel } from './feePayment.model'
-import { assignmentModel } from './assignment.model'
-import { leaveModel } from './leave.model'
-import { recheckingModel } from './rechecking.model'
-import { gatePass } from './gatePass.model'
-import { Notification } from './notification.model'
-import { Event } from './event.model'
-import { Concent } from './concent.model'
-import { FeedBack } from './feedBack.model'
+import { StudentModel } from './studnet.model'
+import { ParentModel } from './parent.model'
+import { TeacherModel } from './teacher.model'
+import { ClassModel } from './class.model'
+import { SubjectModel } from './subject.model'
+import { TimeTableModel } from './timeTable.model'
+import { AttendanceModel } from './attendance.model'
+import { FacultAttendanceModel } from './facultAttendance.model'
+import { ExamModel } from './exam.model'
+import { MarksModel } from './marks.model'
+import { FeeStructureModel } from './feeStructure.model'
+import { FeePaymentModel } from './feePayment.model'
+import { AssignmentModel } from './assignment.model'
+import { LeaveModel } from './leave.model'
+import { RecheckingModel } from './rechecking.model'
+import { GatePassModel } from './gatePass.model'
+import { NotificationModel } from './notification.model'
+import { EventModel } from './event.model'
+import { ConcentModel } from './concent.model'
+import { FeedBackModel } from './feedBack.model'
+import { StockModel } from './stock.model'
+import { ExpensesModel } from './expense.model'
+import { TaskModel } from './task.model'
+import { DigitalIdModel } from './digitalId.model'
+import { CertificateModel } from './certificates.model'
 
 export const models = {
   School: SchoolModel,
   User: UserModel,
-  Student: studentModel,
-  Parent: parentModel,
-  Teacher: teacherModel,
-  Class: classModel,
-  Subject: subjectModel,
-  TimeTable: timeTableModel,
-  Attendance: attendanceModel,
-  FacultAttendance: facultAttendanceModel,
-  Exam: examModel,
-  Marks: marksModel,
-  FeeStructure: feeStructureModel,
-  FeePayment: feePaymentModel,
-  Assignment: assignmentModel,
-  Leave: leaveModel,
-  Rechecking: recheckingModel,
-  GatePass: gatePass,
-  Notification: Notification,
-  Event: Event,
-  Concent: Concent,
-  FeedBack: FeedBack
+  Student: StudentModel,
+  Parent: ParentModel,
+  Teacher: TeacherModel,
+  Class: ClassModel,
+  Subject: SubjectModel,
+  TimeTable: TimeTableModel,
+  Attendance: AttendanceModel,
+  FacultAttendance: FacultAttendanceModel,
+  Exam: ExamModel,
+  Marks: MarksModel,
+  FeeStructure: FeeStructureModel,
+  FeePayment: FeePaymentModel,
+  Assignment: AssignmentModel,
+  Leave: LeaveModel,
+  Rechecking: RecheckingModel,
+  GatePass: GatePassModel,
+  Notification: NotificationModel,
+  Event: EventModel,
+  Concent: ConcentModel,
+  FeedBack: FeedBackModel,
+  Stock: StockModel,
+  Expenses: ExpensesModel,
+  Task: TaskModel,
+  DigitalId: DigitalIdModel,
+  Certificate: CertificateModel
 }

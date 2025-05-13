@@ -31,4 +31,4 @@ const feedBackSchema = new mongoose.Schema({
     default: false
   }
 })
-export const FeedBack = mongoose.models.FeedBack || mongoose.model('FeedBack', feedBackSchema)
+export const FeedBackModel = mongoose.models.FeedBack || mongoose.model('FeedBack', feedBackSchema)

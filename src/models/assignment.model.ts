@@ -41,4 +41,4 @@ const assignmentSchema = new mongoose.Schema(
   },
   { timestamps: true, versionKey: false }
 )
-export const assignmentModel = mongoose.models.Assignment || mongoose.model('Assignment', assignmentSchema)
+export const AssignmentModel = mongoose.models.Assignment || mongoose.model('Assignment', assignmentSchema)

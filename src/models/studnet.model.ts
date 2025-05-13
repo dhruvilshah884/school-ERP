@@ -60,4 +60,4 @@ const studentSchema = new mongoose.Schema(
   },
   { timestamps: true, versionKey: false }
 )
-export const studentModel = mongoose.models.Student || mongoose.model('Student', studentSchema)
+export const StudentModel = mongoose.models.Student || mongoose.model('Student', studentSchema)
