@@ -10,7 +10,7 @@ const notificationSchema = new mongoose.Schema({
   },
   target_role: {
     type: String,
-    enum: ['STUDENT', 'TEACHER', 'PARENT', 'ADMIN', 'ALL']
+    enum: ['PRINCIPAL', 'TEACHER', 'PARENT', 'STUDENT', 'RECEPTION', 'SECURITY', 'ALL']
   },
   read: {
     type: Boolean,
@@ -24,6 +24,11 @@ const notificationSchema = new mongoose.Schema({
   isDeleted: {
     type: Boolean,
     default: false
+  },
+  school: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'School',
+    required: true
   }
 })
 export const Notification = mongoose.models.Notification || mongoose.model('Notification', notificationSchema)
