@@ -18,6 +18,7 @@ import { recheckingModel } from './rechecking.model'
 import { gatePass } from './gatePass.model'
 import { Notification } from './notification.model'
 import { Event } from './event.model'
+import { Concent } from './concent.model'
 import { ConsentForm } from './consentForm.model'
 import { FeedBack } from './feedBack.model'
 
@@ -42,6 +43,7 @@ export const models = {
   GatePass: gatePass,
   Notification: Notification,
   Event: Event,
+  Concent: Concent,
   ConsentForm: ConsentForm,
   FeedBack: FeedBack
 }
