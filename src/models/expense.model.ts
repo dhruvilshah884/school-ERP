@@ -31,6 +31,10 @@ const expenseSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
+    addedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
     school: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'School'
