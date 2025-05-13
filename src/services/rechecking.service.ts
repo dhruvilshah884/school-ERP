@@ -14,7 +14,7 @@ export class RecheckingService {
    return rechecking
   }
   public async getRechecking() {
-    return await models.Rechecking.find()
+    return await models.Rechecking.find({isDeleted:false})
       .populate('exam_id')
       .populate('subject_id')
       .populate('school')

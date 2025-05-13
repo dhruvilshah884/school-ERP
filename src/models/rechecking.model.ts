@@ -29,6 +29,10 @@ const recheckinhSchema = new mongoose.Schema(
     approved_by: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   },
   {

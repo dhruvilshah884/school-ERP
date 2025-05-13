@@ -33,6 +33,10 @@ const assignmentSchema = new mongoose.Schema(
     file_url: {
       type: String,
       required: true
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true, versionKey: false }

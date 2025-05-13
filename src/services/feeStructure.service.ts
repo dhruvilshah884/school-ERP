@@ -5,7 +5,7 @@ export class FeeStructureService {
     return await models.FeeStructure.create(data)
   }
   public async getFeeStructure() {
-    return await models.FeeStructure.find().populate('school class_id')
+    return await models.FeeStructure.find({isDeleted:false}).populate('school class_id')
   }
   public async getFeeStructureById(id: string) {
     return await models.FeeStructure.findById(id).populate('school class_id')
@@ -14,6 +14,6 @@ export class FeeStructureService {
     return await models.FeeStructure.findByIdAndUpdate(id, data, { new: true })
   }
   public async deleteFeeStructure(id: string) {
-    return await models.FeeStructure.findByIdAndDelete(id)
+    return await models.FeeStructure.findByIdAndUpdate(id, {isDeleted:true})
   }
 }

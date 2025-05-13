@@ -6,7 +6,7 @@ export class MarkService {
     return mark
   }
   public async getMarks(): Promise<any> {
-    const marks = await models.Marks.find()
+    const marks = await models.Marks.find({ isDeleted: false })
       .populate('student_id')
       .populate('subject_id')
       .populate('entered_by')
@@ -26,7 +26,7 @@ export class MarkService {
     return mark
   }
   public async deleteMarks(id: any): Promise<any> {
-    const mark = await models.Marks.findByIdAndDelete(id)
+    const mark = await models.Marks.findByIdAndUpdate(id, { isDeleted: true })
     return mark
   }
 }

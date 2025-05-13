@@ -20,6 +20,10 @@ const feedBackSchema = new mongoose.Schema({
   recorded_by: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false
   }
 })
 export const FeedBack = mongoose.models.FeedBack || mongoose.model('FeedBack', feedBackSchema)

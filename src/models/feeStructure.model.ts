@@ -21,6 +21,10 @@ const feeStructureSchema = new mongoose.Schema({
     due_date: {
         type: Date,
         required: true
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
 }, { timestamps: true , versionKey: false })
 export const feeStructureModel = mongoose.models.FeeStructure || mongoose.model('FeeStructure', feeStructureSchema)

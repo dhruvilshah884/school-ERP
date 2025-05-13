@@ -32,6 +32,10 @@ const markSchema = new mongoose.Schema({
     is_locked: {
         type: Boolean,
         default: false
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
 }, { timestamps: true , versionKey: false })
 export const marksModel = mongoose.models.Marks || mongoose.model('Marks', markSchema)

@@ -46,6 +46,10 @@ const leaveSchema = new mongoose.Schema(
     attachment_url: {
       type: String,
       required: false
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   },
   { timeStamps: true, versionKey: false }

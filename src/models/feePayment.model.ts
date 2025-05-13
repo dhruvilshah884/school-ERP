@@ -28,6 +28,10 @@ const feePaymentSchema = new mongoose.Schema({
     },
     transaction_id: {
         type: String
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
 }, { timestamps: true , versionKey: false })
 export const feePaymentModel = mongoose.models.FeePayment || mongoose.model('FeePayment', feePaymentSchema)

@@ -20,6 +20,10 @@ const notificationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false
   }
 })
 export const Notification = mongoose.models.Notification || mongoose.model('Notification', notificationSchema)
