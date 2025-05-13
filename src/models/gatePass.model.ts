@@ -30,6 +30,10 @@ const gatePassSchema = new mongoose.Schema(
     guardian_photo_url: {
       type: String,
       required: true
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true, versionKey: false }
