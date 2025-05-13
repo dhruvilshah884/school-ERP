@@ -10,7 +10,7 @@ const eventModel = new mongoose.Schema({
     required: true
   },
   date: {
-    type: String,
+    type: Date,
     required: true
   },
   location: {
@@ -29,6 +29,11 @@ const eventModel = new mongoose.Schema({
   isDeleted: {
     type: Boolean,
     default: false
+  },
+  school: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'School',
+    required: true
   }
 })
 export const Event = mongoose.models.Event || mongoose.model('Event', eventModel)
