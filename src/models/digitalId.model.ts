@@ -4,7 +4,7 @@ const digitalIdSchema = new mongoose.Schema(
   {
     student_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Student',
+      ref: 'User',
       required: true
     },
     qr_code: {
@@ -12,11 +12,11 @@ const digitalIdSchema = new mongoose.Schema(
       required: true
     },
     status: {
-      type: Boolean,
+      type: String,
       enum: ['ACTIVE', 'INACTIVE'],
       default: 'ACTIVE'
     },
-    is_deleted: {
+    isDeleted: {
       type: Boolean,
       default: false
     },
