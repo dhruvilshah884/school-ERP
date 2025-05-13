@@ -13,6 +13,11 @@ const stockSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  assigned_by: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   date_assigned: {
     type: Date,
     default: Date.now()
