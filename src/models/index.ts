@@ -25,6 +25,7 @@ import { ExpensesModel } from './expense.model'
 import { TaskModel } from './task.model'
 import { DigitalIdModel } from './digitalId.model'
 import { CertificateModel } from './certificates.model'
+import { LibraryModel } from './library.model'
 
 export const models = {
   School: SchoolModel,
@@ -53,5 +54,6 @@ export const models = {
   Expenses: ExpensesModel,
   Task: TaskModel,
   DigitalId: DigitalIdModel,
-  Certificate: CertificateModel
+  Certificate: CertificateModel,
+  Library: LibraryModel
 }

@@ -19,7 +19,7 @@ export class CertificateService {
     return await models.Certificate.findByIdAndUpdate(id, { isDeleted: true }, { new: true })
   }
   public async getCertificateByStudent(studentId: string) {
-    return await models.Certificate.find({ student: studentId, isDeleted: false })
+    return await models.Certificate.find({ student_id: studentId, isDeleted: false })
       .populate('student_id')
       .populate('school')
   }
