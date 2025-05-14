@@ -1,0 +1,542 @@
+now we have to discuss the frontend and now i want to a first change in backend then change in all the get method and fetch according to the school then 
+i have to create a two model in which i have library model and one is a for a transport model 
+then i have to do a create a frontend then in that i have to create a signup page and then i have to create a login page and that i have to create a common login and then i have to redieced according to the user role first i have to do a first admin login then in this i can fetch all the data acording to the that school 
+admin can have all the access and they can do the all the thing after teacher can do the all the thing accept admin can do that teacher cannot do then recepinst which they can do a see all the details but they cannot edit or delete the data then parents see the only therir student details and student can see this data then security can see the student data which are in / out or nothing 
+
+
+
+
+# School Management System API Documentation
+
+This document outlines the data models and API endpoints for the School Management System. The system is designed to manage students, teachers, parents, and various administrative tasks.
+
+## Base URL
+
+`/api/v1`
+
+## Models and Endpoints
+
+### 1. User Model
+
+**Model:**
+```sql
+User (
+  id INT PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100) UNIQUE,
+  password_hash TEXT,
+  phone VARCHAR(20),
+  gender VARCHAR(10),
+  role ENUM('Admin', 'Principal', 'Teacher', 'Parent', 'Student', 'Reception', 'Security'),
+  profile_image TEXT,
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP
+)
+```
+
+**Endpoints:**
+- `POST /auth/login`: Login
+- `POST /auth/register`: Register
+- `POST /auth/verify-otp`: OTP verification
+- `POST /auth/biometric-login`: Biometric login
+- `GET /users/me`: Get current user profile
+- `GET /roles`: List all roles
+
+### 2. Student Model
+
+**Model:**
+```sql
+Student (
+  id INT PRIMARY KEY,
+  user_id INT REFERENCES User(id),
+  admission_number VARCHAR(50) UNIQUE,
+  class_id INT REFERENCES Class(id),
+  division VARCHAR(5),
+  dob DATE,
+  blood_group VARCHAR(5),
+  address TEXT,
+  guardian_name VARCHAR(100),
+  guardian_contact VARCHAR(20),
+  medical_history TEXT,
+  is_active BOOLEAN
+)
+```
+
+**Endpoints:**
+- `GET /students`: Get all students
+- `GET /students/:id`: Get student by ID
+- `POST /students`: Add new student
+- `PUT /students/:id`: Update student info
+- `DELETE /students/:id`: Delete student
+- `GET /students/:id/medical`: Get medical history
+- `GET /students/:id/certificates`: Get certificates
+
+### 3. Parent Model
+
+**Model:**
+```sql
+Parent (
+  id INT PRIMARY KEY,
+  user_id INT REFERENCES User(id),
+  student_id INT REFERENCES Student(id)
+)
+```
+
+**Endpoints:**
+- `GET /parents/:id/reports`: Get report cards
+- `GET /parents/:id/attendance`: Get attendance records
+- `GET /parents/:id/announcements`: View announcements
+- `POST /parents/:id/leave-request`: Apply for student leave
+
+### 4. Teacher Model
+
+**Model:**
+```sql
+Teacher (
+  id INT PRIMARY KEY,
+  user_id INT REFERENCES User(id),
+  designation VARCHAR(50),
+  subject_specialization TEXT,
+  is_active BOOLEAN
+)
+```
+
+**Endpoints:**
+- `GET /teachers`: Get all teachers
+- `GET /teachers/:id`: Get teacher by ID
+- `POST /teachers`: Add new teacher
+- `PUT /teachers/:id`: Update teacher info
+- `DELETE /teachers/:id`: Delete teacher
+
+### 5. Class Model
+
+**Model:**
+```sql
+Class (
+  id INT PRIMARY KEY,
+  name VARCHAR(20),
+  academic_year VARCHAR(9)
+)
+```
+
+**Endpoints:**
+- No direct endpoints, but referenced in other models.
+
+### 6. Subject Model
+
+**Model:**
+```sql
+Subject (
+  id INT PRIMARY KEY,
+  name VARCHAR(100),
+  class_id INT REFERENCES Class(id),
+  teacher_id INT REFERENCES Teacher(id)
+)
+```
+
+**Endpoints:**
+- No direct endpoints, but referenced in other models.
+
+### 7. Timetable Model
+
+**Model:**
+```sql
+Timetable (
+  id INT PRIMARY KEY,
+  class_id INT REFERENCES Class(id),
+  day_of_week ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
+  subject_id INT REFERENCES Subject(id),
+  start_time TIME,
+  end_time TIME
+)
+```
+
+**Endpoints:**
+- `GET /timetables`: Get all timetables
+- `GET /timetables/:classId`: Get timetable for a class
+- `POST /timetables`: Create timetable
+- `PUT /timetables/:id`: Update timetable
+
+### 8. Attendance Model
+
+**Model:**
+```sql
+Attendance (
+  id INT PRIMARY KEY,
+  student_id INT REFERENCES Student(id),
+  date DATE,
+  status ENUM('Present', 'Absent', 'Leave'),
+  marked_by INT REFERENCES Teacher(id)
+)
+```
+
+**Endpoints:**
+- `GET /attendance/students`: Get all student attendance
+- `POST /attendance/students`: Mark student attendance
+
+### 9. Faculty Attendance Model
+
+**Model:**
+```sql
+FacultyAttendance (
+  id INT PRIMARY KEY,
+  teacher_id INT REFERENCES Teacher(id),
+  date DATE,
+  method ENUM('Biometric', 'Face'),
+  status ENUM('Present', 'Absent', 'Leave')
+)
+```
+
+**Endpoints:**
+- `GET /attendance/staff`: Get staff attendance
+- `POST /attendance/staff`: Mark staff attendance
+
+### 10. Exam Model
+
+**Model:**
+```sql
+Exam (
+  id INT PRIMARY KEY,
+  name VARCHAR(100),
+  class_id INT REFERENCES Class(id),
+  date DATE,
+  type ENUM('Daily', 'Monthly', 'Annual', 'Board')
+)
+```
+
+**Endpoints:**
+- `GET /exams`: List all exams
+- `POST /exams`: Create new exam
+- `GET /exams/:id`: Get exam details
+
+### 11. Marks Model
+
+**Model:**
+```sql
+Marks (
+  id INT PRIMARY KEY,
+  student_id INT REFERENCES Student(id),
+  exam_id INT REFERENCES Exam(id),
+  subject_id INT REFERENCES Subject(id),
+  marks_obtained DECIMAL(5,2),
+  max_marks INT,
+  entered_by INT REFERENCES Teacher(id),
+  is_locked BOOLEAN
+)
+```
+
+**Endpoints:**
+- `POST /results`: Add result entry
+- `GET /results/:studentId`: Get results for a student
+- `POST /results/recheck`: Request result rechecking
+
+### 12. Fee Structure Model
+
+**Model:**
+```sql
+FeeStructure (
+  id INT PRIMARY KEY,
+  class_id INT REFERENCES Class(id),
+  term ENUM('Term1', 'Term2', 'Annual'),
+  amount DECIMAL(10,2),
+  due_date DATE
+)
+```
+
+**Endpoints:**
+- `GET /fees`: Get all fee records
+- `GET /fees/:id`: Get fee record by ID
+- `POST /fees`: Create new fee record
+- `PUT /fees/:id`: Update fee
+- `DELETE /fees/:id`: Delete fee
+
+### 13. Fee Payment Model
+
+**Model:**
+```sql
+FeePayment (
+  id INT PRIMARY KEY,
+  student_id INT REFERENCES Student(id),
+  structure_id INT REFERENCES FeeStructure(id),
+  amount_paid DECIMAL(10,2),
+  payment_date TIMESTAMP,
+  payment_method ENUM('Online', 'Cash', 'Cheque'),
+  transaction_id TEXT
+)
+```
+
+**Endpoints:**
+- `POST /payments/initiate`: Initiate payment (for parents)
+- `POST /payments/webhook`: Handle payment webhook
+
+### 14. Assignment / Homework Model
+
+**Model:**
+```sql
+Assignment (
+  id INT PRIMARY KEY,
+  class_id INT REFERENCES Class(id),
+  subject_id INT REFERENCES Subject(id),
+  teacher_id INT REFERENCES Teacher(id),
+  title TEXT,
+  description TEXT,
+  due_date DATE,
+  file_url TEXT
+)
+```
+
+**Endpoints:**
+- `POST /resources`: Upload assignment/resource
+- `GET /resources`: List all learning resources
+
+### 15. Leave Model
+
+**Model:**
+```sql
+Leave (
+  id INT PRIMARY KEY,
+  student_id INT REFERENCES Student(id),
+  requested_by INT REFERENCES Parent(id),
+  from_date DATE,
+  to_date DATE,
+  reason TEXT,
+  status ENUM('Pending', 'Approved', 'Rejected')
+)
+```
+
+**Endpoints:**
+- No direct endpoints, managed through parent and faculty endpoints.
+
+### 16. Gate Pass Model
+
+**Model:**
+```sql
+GatePass (
+  id INT PRIMARY KEY,
+  student_id INT REFERENCES Student(id),
+  issued_by INT REFERENCES Admin(id),
+  reason TEXT,
+  date TIMESTAMP,
+  status ENUM('Pending', 'Approved'),
+  guardian_photo_url TEXT
+)
+```
+
+**Endpoints:**
+- `POST /gatepass/early-checkout`: Request early checkout
+- `GET /gatepass/verify/:id`: Security verifies gate pass
+
+### 17. Notification/Circular Model
+
+**Model:**
+```sql
+Notification (
+  id INT PRIMARY KEY,
+  title TEXT,
+  content TEXT,
+  target_role ENUM('All', 'Teacher', 'Parent', 'Student'),
+  issued_by INT REFERENCES Admin(id),
+  created_at TIMESTAMP
+)
+```
+
+**Endpoints:**
+- `GET /announcements`: List all announcements
+- `POST /announcements`: Create new announcement
+- `DELETE /announcements/:id`: Delete announcement
+
+### 18. Event / Tour Model
+
+**Model:**
+```sql
+Event (
+  id INT PRIMARY KEY,
+  title TEXT,
+  description TEXT,
+  date DATE,
+  location TEXT,
+  requires_consent BOOLEAN,
+  created_by INT REFERENCES Admin(id)
+)
+```
+
+**Endpoints:**
+- `POST /trips`: Create new trip/tour
+- `GET /trips`: List all trips
+- `POST /trips/:id/consent`: Parent submits consent
+
+### 19. Consent Form Model
+
+**Model:**
+```sql
+Consent (
+  id INT PRIMARY KEY,
+  parent_id INT REFERENCES Parent(id),
+  event_id INT REFERENCES Event(id),
+  status ENUM('Given', 'Not Given'),
+  date_signed TIMESTAMP
+)
+```
+
+**Endpoints:**
+- No direct endpoints, managed through event endpoints.
+
+### 20. AI Performance Analysis (Optional Table)
+
+**Model:**
+```sql
+PerformanceAnalysis (
+  id INT PRIMARY KEY,
+  student_id INT REFERENCES Student(id),
+  subject_id INT REFERENCES Subject(id),
+  predicted_score DECIMAL(5,2),
+  risk_level ENUM('Low', 'Medium', 'High'),
+  analysis_date DATE
+)
+```
+
+**Endpoints:**
+- `GET /analytics/performance/:id`: Get AI-analyzed performance
+- `POST /analytics/train`: Train AI model
+- `GET /analytics/result-trends`: Generate result trend graphs
+
+### 21. Guest & Feedback Model
+
+**Model:**
+```sql
+GuestFeedback (
+  id INT PRIMARY KEY,
+  name VARCHAR(100),
+  purpose TEXT,
+  feedback TEXT,
+  visit_date TIMESTAMP,
+  recorded_by INT REFERENCES Reception(id)
+)
+```
+
+**Endpoints:**
+- `POST /guests/feedback`: Submit feedback (reception)
+- `GET /guests/feedback`: View guest feedback (admin)
+
+### 22. Stock & Asset Model
+
+**Model:**
+```sql
+Asset (
+  id INT PRIMARY KEY,
+  name VARCHAR(100),
+  quantity INT,
+  assigned_to INT REFERENCES Teacher(id),
+  date_assigned DATE,
+  status ENUM('Working', 'Under Repair', 'Discarded')
+)
+```
+
+**Endpoints:**
+- `POST /inventory/stock`: Add/view stock
+- `POST /inventory/assets`: Manage assets
+
+### 23. Expense Model
+
+**Model:**
+```sql
+Expense (
+  id INT PRIMARY KEY,
+  faculty_id INT REFERENCES Teacher(id),
+  title TEXT,
+  amount DECIMAL(10,2),
+  date DATE,
+  remarks TEXT,
+  status ENUM('Pending', 'Approved', 'Rejected')
+)
+```
+
+**Endpoints:**
+- `POST /faculty/expenses`: Submit expense
+
+### 24. Digital ID Card Model
+
+**Model:**
+```sql
+DigitalIDCard (
+  id INT PRIMARY KEY,
+  student_id INT REFERENCES Student(id),
+  qr_code_url TEXT,
+  generated_at TIMESTAMP
+)
+```
+
+**Endpoints:**
+- `GET /idcards/:studentId`: Get student ID card (digital)
+- `GET /idcards/:studentId/pdf`: Download printable ID
+
+### 25. Task Management
+
+**Endpoints:**
+- `POST /tasks`: Assign new task
+- `GET /tasks/:facultyId`: Get tasks assigned to faculty
+- `PUT /tasks/:taskId/status`: Update task status
+
+### 26. Certificates, LCs, and Shifting
+
+**Endpoints:**
+- `POST /certificates`: Upload certificates
+- `GET /certificates/:studentId`: View certificates
+- `POST /transfer`: Transfer student to another division
+- `GET /transfer/logs`: View all transfer logs
+
+```
+
+# Additional Endpoints
+
+The following endpoints are suggested additions based on common functionalities that might be missing:
+
+- `GET /classes`: Get all classes
+- `POST /classes`: Create a new class
+- `PUT /classes/:id`: Update class information
+- `DELETE /classes/:id`: Delete a class
+
+- `GET /subjects`: Get all subjects
+- `POST /subjects`: Create a new subject
+- `PUT /subjects/:id`: Update subject information
+- `DELETE /subjects/:id`: Delete a subject
+
+- `GET /parents`: Get all parents
+- `POST /parents`: Add a new parent
+- `PUT /parents/:id`: Update parent information
+- `DELETE /parents/:id`: Delete a parent
+
+- `GET /leave-requests`: Get all leave requests
+- `PUT /leave-requests/:id`: Update leave request status
+
+- `GET /gate-passes`: Get all gate passes
+- `PUT /gate-passes/:id`: Update gate pass status
+
+- `GET /consents`: Get all consents
+- `PUT /consents/:id`: Update consent status
+
+- `GET /assets`: Get all assets
+- `PUT /assets/:id`: Update asset information
+- `DELETE /assets/:id`: Delete an asset
+
+- `GET /expenses`: Get all expenses
+- `PUT /expenses/:id`: Update expense information
+- `DELETE /expenses/:id`: Delete an expense
+
+- `GET /feedback`: Get all feedback
+- `PUT /feedback/:id`: Update feedback information
+- `DELETE /feedback/:id`: Delete feedback
+
+- `GET /analytics/trends`: Get analytics trends
+
+- `GET /tasks`: Get all tasks
+- `DELETE /tasks/:id`: Delete a task
+
+- `GET /announcements/:id`: Get announcement by ID
+- `PUT /announcements/:id`: Update announcement
+
+- `GET /trips/:id`: Get trip by ID
+- `PUT /trips/:id`: Update trip information
+- `DELETE /trips/:id`: Delete a trip
+
+```
