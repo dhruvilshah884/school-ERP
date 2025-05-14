@@ -38,9 +38,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
-
-
-now we have to discuss the frontend and now i want to a first change in backend then change in all the get method and fetch according to the school then 
-i have to create a two model in which i have library model and one is a for a transport model 
-then i have to do a create a frontend then in that i have to create a signup page and then i have to create a login page and that i have to create a common login and then i have to redieced according to the user role first i have to do a first admin login then in this i can fetch all the data acording to the that school 
-admin can have all the access and they can do the all the thing after teacher can do the all the thing accept admin can do that teacher cannot do then recepinst which they can do a see all the details but they cannot edit or delete the data then parents see the only therir student details and student can see this data then security can see the student data which are in / out or nothing 
