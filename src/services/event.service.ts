@@ -8,7 +8,8 @@ export class EventService {
     const students = await models.Student.find({ school: event.school })
     const concents = students.map(student => ({
       event_id: event._id,
-      student_id: student._id
+      student_id: student._id,
+      school: event.school
     }))
     await this.concentModel.insertMany(concents)
     return event
@@ -33,7 +34,7 @@ export class EventService {
     return concent
   }
   public async getConcentByStudentId(studentId: string): Promise<any> {
-   const concent = await models.Concent.find({ student_id: studentId }).populate('event_id')
+    const concent = await models.Concent.find({ student_id: studentId }).populate('event_id')
     return concent
   }
 }
