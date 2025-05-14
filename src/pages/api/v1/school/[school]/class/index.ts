@@ -10,7 +10,7 @@ export default nextConnect()
   .use(dbConnectMiddleware)
   .use(authCheckMiddleware)
   .get(async (req: NextApiRequestWithUser, res: NextApiResponse) => {
-    const classes = await classServiceInstance.getAllClasses()
+    const classes = await classServiceInstance.getAllClasses(req.query.school as string)
     res.status(200).json({
       success: true,
       data: classes

@@ -11,7 +11,7 @@ export default nextConnect()
   .use(authCheckMiddleware)
   .get(async (req: NextApiRequestWithUser, res: NextApiResponse) => {
     try {
-      const notifications = await service.getNotifications(req.user.role)
+      const notifications = await service.getNotifications(req.user.role , req.query.school as string)
       res.status(200).json({ notifications })
     } catch (error: any) {
       res.status(500).json({ message: error.message, success: false })

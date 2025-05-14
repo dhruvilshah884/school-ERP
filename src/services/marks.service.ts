@@ -5,8 +5,8 @@ export class MarkService {
     const mark = await models.Marks.create(data)
     return mark
   }
-  public async getMarks(): Promise<any> {
-    const marks = await models.Marks.find({ isDeleted: false })
+  public async getMarks(schoolId:string): Promise<any> {
+    const marks = await models.Marks.find({ isDeleted: false , school: schoolId })
       .populate('student_id')
       .populate('subject_id')
       .populate('entered_by')

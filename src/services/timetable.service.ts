@@ -2,8 +2,12 @@ import { models } from '@/models'
 
 export class timetableService {
   private timetableModel = models.TimeTable
-  public async getAllTimetables() {
-    return this.timetableModel.find({ isDeleted: false }).populate('subject_id').populate('class_id').populate('school')
+  public async getAllTimetables(school: string) {
+    return this.timetableModel
+      .find({ isDeleted: false, school: school })
+      .populate('subject_id')
+      .populate('class_id')
+      .populate('school')
   }
   public async getTimetableById(id: string) {
     return this.timetableModel.findById(id).populate('subject_id').populate('class_id').populate('school')

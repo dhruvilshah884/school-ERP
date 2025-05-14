@@ -25,9 +25,9 @@ export class examService {
       throw error
     }
   }
-  public async getExam(){
+  public async getExam(schoolId: string) {
     try {
-      const exams = await this.examModel.find({isDeleted: false}).populate('school').populate('class_id')
+      const exams = await this.examModel.find({isDeleted: false , school:schoolId}).populate('school').populate('class_id')
       return exams
     } catch (error) {
       throw error

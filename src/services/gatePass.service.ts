@@ -33,9 +33,9 @@ export class GatePassService {
       throw error
     }
   }
-  public async getGatePasses() {
+  public async getGatePasses(schoolId: string) {
     try {
-      const response = await models.GatePass.find({ isDeleted: false })
+      const response = await models.GatePass.find({ isDeleted: false , school: schoolId })
         .populate('student_id')
         .populate('school')
         .populate('issued_by')

@@ -6,8 +6,8 @@ export class parentService{
         const newParent = await this.parentModel.create(parent)
         return newParent;
     }
-    public async getParent(){
-        const parent = await this.parentModel.find({isDeleted:false}).populate('user_id').populate('student_id').populate('school');
+    public async getParent(schoolId:string){
+        const parent = await this.parentModel.find({isDeleted:false , school:schoolId}).populate('user_id').populate('student_id').populate('school');
         return parent;
     }
     public async getParentById(id:any){

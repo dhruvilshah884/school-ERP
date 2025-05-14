@@ -14,8 +14,8 @@ export class EventService {
     await this.concentModel.insertMany(concents)
     return event
   }
-  public async getEvents(): Promise<any> {
-    return await models.Event.find({ isDeleted: false }).populate('created_by school')
+  public async getEvents(schoolId: string): Promise<any> {
+    return await models.Event.find({ isDeleted: false, school: schoolId }).populate('created_by school')
   }
   public async getEvent(id: string): Promise<any> {
     return await models.Event.findById(id).populate('created_by school')

@@ -12,7 +12,7 @@ export default nextConnect()
   .use(authCheckMiddleware)
   .get(async (req: NextApiRequestWithUser, res: NextApiResponse) => {
     try {
-      const subjects = await service.getAllSubjects()
+      const subjects = await service.getAllSubjects(req.query.school as string)
       res.status(200).json(subjects)
     } catch (err: any) {
       res.status(500).json({ message: err.message })

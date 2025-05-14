@@ -5,10 +5,11 @@ export class NotificationService {
     const newNotification = await models.Notification.create(data)
     return newNotification
   }
-  public async getNotifications(userRole: any): Promise<any> {
+  public async getNotifications(userRole: any, schoolId: string): Promise<any> {
     const filter: any = {
       isDeleted: false,
-      target_role: { $in: ['ALL', userRole] }
+      target_role: { $in: ['ALL', userRole] },
+      school: schoolId
     }
     const notifications = await models.Notification.find(filter).sort({ createdAt: -1 }).populate('issued_by')
     return notifications

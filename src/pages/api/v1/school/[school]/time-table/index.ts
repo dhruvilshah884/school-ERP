@@ -11,7 +11,7 @@ export default nextConnect()
   .use(authCheckMiddleware)
   .get(async (req: NextApiRequestWithUser, res: NextApiResponse) => {
     try {
-      const timeTables = await service.getAllTimetables()
+      const timeTables = await service.getAllTimetables(req.query.school as string)
       res.status(200).json(timeTables)
     } catch (err: any) {
       res.status(500).json({ message: err.message })

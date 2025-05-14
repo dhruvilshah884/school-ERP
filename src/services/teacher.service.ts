@@ -6,8 +6,8 @@ export class teacherService {
     const newTeacher = await this.teacherModel.create(teacher)
     return newTeacher
   }
-  public async getTeacher() {
-    const teacher = await this.teacherModel.find({ isDeleted: false }).populate('user_id').populate('school')
+  public async getTeacher(school:string) {
+    const teacher = await this.teacherModel.find({ isDeleted: false , school:school }).populate('user_id').populate('school')
     return teacher
   }
   public async getTeacherById(id: any) {

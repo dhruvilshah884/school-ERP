@@ -13,8 +13,8 @@ export class RecheckingService {
    const rechecking = await models.Rechecking.find({ requested_by: studentId }).populate('exam_id').populate('subject_id').populate('school').populate('approved_by').populate('requested_by')
    return rechecking
   }
-  public async getRechecking() {
-    return await models.Rechecking.find({isDeleted:false})
+  public async getRechecking(school:string) {
+    return await models.Rechecking.find({isDeleted:false , school:school})
       .populate('exam_id')
       .populate('subject_id')
       .populate('school')

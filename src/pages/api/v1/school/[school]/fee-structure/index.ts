@@ -11,7 +11,7 @@ export default nextConnect()
   .use(authCheckMiddleware)
   .get(async (req: NextApiRequestWithUser, res: NextApiResponse) => {
     try {
-      const feeStructure = await service.getFeeStructure()
+      const feeStructure = await service.getFeeStructure(req.query.school as string)
       res.status(200).json(feeStructure)
     } catch (error: any) {
       res.status(500).json({

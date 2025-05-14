@@ -5,8 +5,8 @@ export class StockService {
     const stock = await models.Stock.create(data)
     return stock
   }
-  public async getStocks() {
-    const stocks = await models.Stock.find({ isDeleted: false }).populate('school').populate('assigned_to').populate('assigned_by')
+  public async getStocks(school:string) {
+    const stocks = await models.Stock.find({ isDeleted: false , school:school }).populate('school').populate('assigned_to').populate('assigned_by')
     return stocks
   }
   public async updateStock(id: string, data: any) {

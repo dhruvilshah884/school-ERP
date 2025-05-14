@@ -7,8 +7,8 @@ export class StudentService {
     const student = await this.student.create(data)
     return student
   }
-  public async getStudents(): Promise<any> {
-    const students = await this.student.find({ isDeleted: false }).populate('user_id').populate('school').populate('class_id')
+  public async getStudents(school:string): Promise<any> {
+    const students = await this.student.find({ isDeleted: false , school:school}).populate('user_id').populate('school').populate('class_id')
     return students
   }
   public async getStudent(id: string): Promise<any> {

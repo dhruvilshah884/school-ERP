@@ -11,7 +11,7 @@ export default nextConnect()
   .use(authCheckMiddleware)
   .get(async (req: NextApiRequestWithUser, res: NextApiResponse) => {
     try {
-      const response = await service.getGatePasses()
+      const response = await service.getGatePasses(req.query.school as string)
       res.status(200).json({
         status: 'success',
         data: response
