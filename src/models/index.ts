@@ -26,6 +26,8 @@ import { TaskModel } from './task.model'
 import { DigitalIdModel } from './digitalId.model'
 import { CertificateModel } from './certificates.model'
 import { LibraryModel } from './library.model'
+import { BusModel } from './bus.model'
+import { StudentTransportationModel } from './studentTransportation.model'
 
 export const models = {
   School: SchoolModel,
@@ -55,5 +57,7 @@ export const models = {
   Task: TaskModel,
   DigitalId: DigitalIdModel,
   Certificate: CertificateModel,
-  Library: LibraryModel
+  Library: LibraryModel,
+  Bus: BusModel,
+  StudentTransportation: StudentTransportationModel
 }

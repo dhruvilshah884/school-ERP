@@ -42,6 +42,10 @@ const librarySchema = new mongoose.Schema(
     },
     remarks: {
       type: String
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true, versionKey: false }

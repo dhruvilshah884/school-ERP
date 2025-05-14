@@ -35,9 +35,9 @@ export class libraryService {
       throw new Error(`Error fetching library: ${error}`)
     }
   }
-  public async getAllLibrary(schoolId:string): Promise<any> {
+  public async getAllLibrary(schoolId: string): Promise<any> {
     try {
-      const libraries = await models.Library.find({school:schoolId}).populate('student_id school')
+      const libraries = await models.Library.find({ school: schoolId, isDeleted: false }).populate('student_id school')
       return libraries
     } catch (error) {
       throw new Error(`Error fetching libraries: ${error}`)
@@ -56,7 +56,7 @@ export class libraryService {
   }
   public async deleteLibrary(id: string): Promise<any> {
     try {
-      const library = await models.Library.findByIdAndDelete(id)
+      const library = await models.Library.findByIdAndUpdate(id, { isDeleted: true }, { new: true })
       if (!library) {
         throw new Error('Library not found')
       }
