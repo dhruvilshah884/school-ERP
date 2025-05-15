@@ -14,6 +14,6 @@ export default nextConnect()
       const user = await authService.signup(data)
       res.status(200).json({ message: 'Signup successful', user })
     } catch (error: any) {
-      res.status(500).json({ error: error.message })
+      res.status(500).json({ error: error.message  , success: false})
     }
   })

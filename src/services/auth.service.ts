@@ -45,7 +45,6 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new Error('Invalid password')
     }
-    console.log(user._id)
     const tokenData = await this.createToken({
       _id: user._id,
       name: user.name,
