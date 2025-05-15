@@ -11,17 +11,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import {
-  Menu,
-  X,
-  Bell,
-  CircleUser,
-  LogOut,
-  Settings,
-  ShieldQuestion
-} from 'lucide-react'
+import { Menu, X, Bell, CircleUser, LogOut, Settings, ShieldQuestion } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Icon from '../../../public/images/logo.png'
 
 const AppHeader: React.FC = () => {
   const { toggleSidebar, toggleMobileSidebar, isMobileOpen } = useSidebar()
@@ -46,9 +39,20 @@ const AppHeader: React.FC = () => {
       toggleMobileSidebar()
     }
   }
+  const getGreeting = () => {
+    const hour = new Date().getHours()
+    if (hour < 12) {
+      return 'Good Morning'
+    } else if (hour < 18) {
+      return 'Good Afternoon'
+    } else {
+      return 'Good Evening'
+    }
+  }
+  const greeting = getGreeting()
 
   return (
-    <header className='sticky top-0 z-50 w-full border-b bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900'>
+    <header className='sticky top-0 z-50 w-full border-b bg-dark shadow-sm dark:border-gray-700 dark:bg-gray-900'>
       <div className='flex items-center justify-between px-4 py-3 lg:px-6'>
         {/* Left: Sidebar Toggle & Logo */}
         <div className='flex items-center gap-3'>
@@ -61,46 +65,20 @@ const AppHeader: React.FC = () => {
           </button>
 
           <Link href='/'>
-            <Image
-              src='/images/logo/logo.svg'
-              alt='Logo'
-              width={140}
-              height={32}
-              className='block dark:hidden'
-            />
-            <Image
-              src='/images/logo/logo-dark.svg'
-              alt='Logo'
-              width={140}
-              height={32}
-              className='hidden dark:block'
-            />
+            <Image src={Icon as any} alt='Logo' width={50} height={32} className='hidden dark:block rounded-lg' />
           </Link>
         </div>
 
-        {/* Center: Search Input (Desktop only) */}
-        <div className='hidden w-full max-w-md lg:flex'>
-          <div className='relative w-full'>
-            <input
-              ref={inputRef}
-              type='text'
-              placeholder='Search...'
-              className='w-full rounded-md border px-4 py-2 pl-10 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white'
-            />
-            <span className='absolute left-3 top-2.5 text-gray-400'>
-              <svg
-                className='h-4 w-4'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                viewBox='0 0 24 24'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path strokeLinecap='round' strokeLinejoin='round' d='M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.35z'></path>
-              </svg>
-            </span>
+        <div className='flex items-center gap-4'>
+          <div className='flex items-center gap-4'>
+            <div className='flex items-center gap-2'>
+              <p className='text-sm text-gray-600 dark:text-gray-300'>Welcome Back {user?.name}!!! {greeting}</p>
+            </div>
           </div>
         </div>
+
+        
+
 
         {/* Right: Icons & Profile */}
         <div className='flex items-center gap-4'>
@@ -115,10 +93,10 @@ const AppHeader: React.FC = () => {
             <DropdownMenuTrigger className='outline-none'>
               <Avatar>
                 {/* <AvatarImage src={user?.image || '/images/default-user.png'} /> */}
-                <AvatarFallback>{user?.name?.charAt(0) || 'U'}</AvatarFallback>
+                <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className='w-48 mr-4 mt-2'>
+            <DropdownMenuContent className='w-48 mr-4 mt-2 bg-dark-100 dark:bg-gray-800 rounded-lg shadow-lg'>
               <div className='px-3 py-2'>
                 <p className='text-sm font-medium'>{user?.name}</p>
                 <p className='text-xs text-gray-500'>{user?.email}</p>

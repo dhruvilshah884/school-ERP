@@ -40,7 +40,7 @@ export default function LoginPage() {
     <div className='w-full max-w-sm space-y-6'>
       <div className='flex justify-center flex-col items-center gap-4'>
         <Image src='/images/logo.png' alt='Logo' width={64} height={64} />
-        <span className=' space-y-2 font-bold text-xl'>S ERP</span>
+        <span className=' space-y-2 font-bold text-xl'>School ERP</span>
       </div>
       <div className='space-y-2 text-center'>
         <h2 className='text-3xl font-bold'>Login</h2>
