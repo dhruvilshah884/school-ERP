@@ -43,21 +43,15 @@ export default function DashboardLayout(props: IDashboardPageLayout) {
     }, 1000)
   }, [user])
 
-  const mainContentMargin = isMobileOpen
-    ? 'ml-0'
-    : isExpanded || isHovered
-    ? 'lg:ml-[290px]'
-    : 'lg:ml-[90px]'
+  const mainContentMargin = isMobileOpen ? 'ml-0' : isExpanded || isHovered ? 'lg:ml-[275px]' : 'lg:ml-[90px]'
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className='flex min-h-screen bg-gray-100'>
       <AppSidebar />
       <Backdrop />
       <div className={`flex flex-col flex-1 transition-all duration-300 ease-in-out ${mainContentMargin}`}>
         <AppHeader />
-        <main className="flex-1 px-4 py-6 md:px-8 bg-gray-50 overflow-y-auto">
-          {props.children}
-        </main>
+        <main className='flex-1 px-4 py-6 md:px-8 bg-gray-50 overflow-y-auto'>{props.children}</main>
       </div>
     </div>
   )
