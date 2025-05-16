@@ -128,7 +128,6 @@ export class AuthService {
         otp_expiry_time: new Date(Date.now() + 10 * 60 * 1000)
       })
 
-
       if (data.role === 'STUDENT') {
         await models.Student.create({
           user_id: newUser._id,
@@ -175,6 +174,46 @@ export class AuthService {
       }
     } catch (error: any) {
       throw new Error(error.message || 'Signup failed')
+    }
+  }
+  public async createStudentByTeacher(data: any, schoolId: string): Promise<any> {
+    try {
+      const existingUser = await this.user.findOne({ email: data.email })
+      if (existingUser) {
+        throw new Error('Email already exists')
+      }
+      const hashedPassword = await hash(data.password, 10)
+      const newUser = await this.user.create({
+        ...data,
+        school: schoolId,
+        password: hashedPassword,
+        verification_otp: Math.floor(100000 + Math.random() * 900000).toString(),
+        otp_expiry_time: new Date(Date.now() + 10 * 60 * 1000)
+      })
+      await models.Student.create({
+        user_id: newUser._id,
+        school: schoolId,
+        admission_number: data.admission_number,
+        class_id: data.class_id,
+        division: data.division,
+        dob: data.dob,
+        blood_group: data.blood_group,
+        address: data.address,
+        guardian_name: data.guardian_name,
+        guardian_contact: data.guardian_contact,
+        medical_history: data.medical_history
+      })
+      const userObj = newUser.toObject()
+      delete userObj.password
+      delete userObj.verification_otp
+      const { token } = this.createToken(userObj)
+      return {
+        message: 'Student created successfully',
+        token,
+        user: userObj
+      }
+    } catch (error: any) {
+      throw new Error(error.message || 'Student creation failed')
     }
   }
 
