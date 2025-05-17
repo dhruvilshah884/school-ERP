@@ -11,7 +11,7 @@ export default nextConnect()
   .use(authCheckMiddleware)
   .get(async (req: NextApiRequestWithUser, res: NextApiResponse) => {
     try {
-      const teacher = await service.getAllTeacherDetails(req.query.id)
+      const teacher = await service.getAllTeacherDetails(req.query.id as string)
       res.status(200).json({
         status: true,
         data: teacher
