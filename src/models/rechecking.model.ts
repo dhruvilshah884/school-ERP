@@ -6,6 +6,10 @@ const recheckinhSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
+    student_id:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Student'
+    },
     school: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'School'

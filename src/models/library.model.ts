@@ -9,7 +9,7 @@ const librarySchema = new mongoose.Schema(
     },
     student_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'Student',
       required: true
     },
     bookName: {
