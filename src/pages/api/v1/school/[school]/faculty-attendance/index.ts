@@ -14,7 +14,7 @@ export default nextConnect()
     try {
       const data = {
         ...req.body,
-        teacher_id: req.user._id,
+        teacher_id: req.teacher._id,
         school: req.query.school
       }
       const result = await service.createFacultyAttendance(data)

@@ -26,7 +26,7 @@ export default nextConnect()
       const data = {
         ...req.body,
         school: req.query.school,
-        teacher_id: req.user._id
+        teacher_id: req.teacher._id
       }
       const assignment = await service.uploadAssignment(data)
       res.status(200).json(assignment)

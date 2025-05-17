@@ -22,4 +22,17 @@ export class teacherService {
     const deleteTeacher = await this.teacherModel.findByIdAndUpdate(id, { isDeleted: true }, { new: true })
     return deleteTeacher
   }
+  public async getAllTeacherDetails(id:string):Promise<any> {
+    const teacher = await this.teacherModel.findById(id).populate('user_id').populate('school')
+    const subject = await models.Subject.find({ teacher_id: id }).populate('class_id').populate('school')
+    const facultAttendance = await models.FacultAttendance.find({ teacher_id: id }).populate('school')
+    const assignment = await models.Assignment.find({ teacher_id: id }).populate('class_id').populate('subject_id').populate('school')
+    return {
+      teacher,
+      subject,
+      facultAttendance, 
+      assignment
+      }
+      
+  }
 }

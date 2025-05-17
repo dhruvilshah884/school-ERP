@@ -4,7 +4,7 @@ const facultAttendanceSchema = new mongoose.Schema(
   {
     teacher_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'teacher',
+      ref: 'Teacher',
       required: true
     },
     date: {
