@@ -62,8 +62,40 @@ export class StudentService {
 
     const attendance_percentage = total_days === 0 ? 0 : (present_days / total_days) * 100
 
-    const [marks, fee, rechecking, certificate, studentTransportation, library] = await Promise.all([
-      models.Marks.find({ student_id: id, isDeleted: false }),
+    const marksAgg = await models.Marks.aggregate([
+      { $match: { student_id: new Types.ObjectId(id), isDeleted: false } },
+      {
+        $group: {
+          _id: '$exam_id',
+          totalObtained: { $sum: '$marks_obtained' },
+          totalMax: { $sum: '$max_marks' },
+          rows: { $push: '$$ROOT' }
+        }
+      },
+      {
+        $addFields: {
+          percentage: {
+            $cond: [{ $eq: ['$totalMax', 0] }, 0, { $multiply: [{ $divide: ['$totalObtained', '$totalMax'] }, 100] }]
+          }
+        }
+      },
+      {
+        $lookup: {
+          from: 'exams',
+          localField: '_id',
+          foreignField: '_id',
+          as: 'exam'
+        }
+      },
+      { $unwind: '$exam' }
+    ])
+    await Promise.all(
+      marksAgg.map(exam =>
+        models.Marks.populate(exam.rows, { path: "subject_id" })
+      )
+    );
+
+    const [fee, rechecking, certificate, studentTransportation, library] = await Promise.all([
       models.FeePayment.find({ student_id: id, isDeleted: false }),
       models.Rechecking.find({ student_id: id, isDeleted: false }),
       models.Certificate.find({ student_id: id, isDeleted: false }),
@@ -79,7 +111,14 @@ export class StudentService {
         attendance_percentage: Number(attendance_percentage.toFixed(2)),
         attendance
       },
-      marks,
+      marks: marksAgg.map(m => ({
+        exam_id: m._id,
+        exam_name: m.exam?.name,
+        list: m.rows,
+        total_obtained: m.totalObtained,
+        total_max: m.totalMax,
+        percentage: Number(m.percentage.toFixed(2))
+      })),
       fee,
       rechecking,
       certificate,

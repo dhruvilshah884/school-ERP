@@ -324,48 +324,66 @@ export default function StudentDetailsPage() {
                     </div>
                   </TabsContent>
                   <TabsContent value='academics'>
-                    {marks && marks.length > 0 ? (
+                    {marks?.length ? (
                       <div className='space-y-6'>
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className='flex items-center gap-2'>
-                              <BookOpen className='h-5 w-5' />
-                              Academic Records
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <Table>
-                              <TableHeader>
-                                <TableRow>
-                                  <TableHead>Subject</TableHead>
-                                  <TableHead>Marks Obtained</TableHead>
-                                  <TableHead>Max Marks</TableHead>
-                                  <TableHead>Percentage</TableHead>
-                                </TableRow>
-                              </TableHeader>
-                              <TableBody>
-                                {marks.map((mark: any) => (
-                                  <TableRow key={mark._id}>
-                                    <TableCell className='font-medium'>Subject {mark.subject_id}</TableCell>
-                                    <TableCell>{mark.marks_obtained}</TableCell>
-                                    <TableCell>{mark.max_marks}</TableCell>
-                                    <TableCell>
-                                      {((mark.marks_obtained / mark.max_marks) * 100).toFixed(2)}%
-                                      <Progress
-                                        value={(mark.marks_obtained / mark.max_marks) * 100}
-                                        className='h-1.5 mt-1 w-20'
-                                        style={{
-                                          backgroundColor:
-                                            mark.marks_obtained < mark.max_marks / 2 ? '#fecaca' : '#dcfce7'
-                                        }}
-                                      />
-                                    </TableCell>
+                        {marks.map((exam: any) => (
+                          <Card key={exam.exam_id}>
+                            <CardHeader>
+                              <CardTitle className='flex items-center gap-2'>
+                                <BookOpen className='h-5 w-5' />
+                                {exam.exam_name ?? 'Exam'}
+                                <span className='ml-auto text-sm font-normal'>
+                                  {exam.total_obtained}/{exam.total_max} ({exam.percentage.toFixed(2)}%)
+                                </span>
+                              </CardTitle>
+                              <Progress
+                                value={exam.percentage}
+                                className='h-1.5 mt-2'
+                                style={{
+                                  backgroundColor: exam.percentage < 50 ? '#fecaca' : '#dcfce7'
+                                }}
+                              />
+                            </CardHeader>
+
+                            <CardContent>
+                              <Table>
+                                <TableHeader>
+                                  <TableRow>
+                                    <TableHead>Subject</TableHead>
+                                    <TableHead>Marks Obtained</TableHead>
+                                    <TableHead>Max Marks</TableHead>
+                                    <TableHead className='text-right'>%</TableHead>
                                   </TableRow>
-                                ))}
-                              </TableBody>
-                            </Table>
-                          </CardContent>
-                        </Card>
+                                </TableHeader>
+
+                                <TableBody>
+                                  {exam.list.map((mark: any) => {
+                                    const pct = (mark.marks_obtained / mark.max_marks) * 100
+                                    return (
+                                      <TableRow key={mark._id}>
+                                        <TableCell className='font-medium'>
+                                          {mark.subject_id?.name ?? 'Subject'}
+                                        </TableCell>
+                                        <TableCell>{mark.marks_obtained}</TableCell>
+                                        <TableCell>{mark.max_marks}</TableCell>
+                                        <TableCell className='text-right'>
+                                          {pct.toFixed(2)}%
+                                          <Progress
+                                            value={pct}
+                                            className='h-1.5 mt-1 w-20 ml-auto'
+                                            style={{
+                                              backgroundColor: pct < 50 ? '#fecaca' : '#dcfce7'
+                                            }}
+                                          />
+                                        </TableCell>
+                                      </TableRow>
+                                    )
+                                  })}
+                                </TableBody>
+                              </Table>
+                            </CardContent>
+                          </Card>
+                        ))}
                       </div>
                     ) : (
                       <div className='flex flex-col items-center justify-center py-12 bg-muted/20 rounded-lg'>
@@ -377,6 +395,7 @@ export default function StudentDetailsPage() {
                       </div>
                     )}
                   </TabsContent>
+
                   <TabsContent value='library'>
                     {libraryRecords && libraryRecords.length > 0 ? (
                       <Card>
@@ -505,7 +524,7 @@ export default function StudentDetailsPage() {
                                 <Label className='text-sm text-muted-foreground'>Bus Driver Name</Label>
                                 <p className='font-medium'>{transportations[0].bus.busRoute}</p>
                               </div>
-                              
+
                               <div>
                                 <Label className='text-sm text-muted-foreground'>Payment Status</Label>
                                 <Badge className={getStatusBadgeColor(transportations[0].payment_status)}>
