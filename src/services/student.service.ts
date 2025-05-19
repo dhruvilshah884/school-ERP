@@ -40,7 +40,7 @@ export class StudentService {
     const student = await this.student.findById(id).populate('user_id').populate('school').populate('class_id')
 
     if (!student) throw new Error('Student not found')
-
+    const attendance = await models.Attendance.find({ student_id: id, isDeleted: false })
     const attendanceStats = await models.Attendance.aggregate([
       { $match: { student_id: new Types.ObjectId(id), isDeleted: false } },
       {
@@ -50,7 +50,6 @@ export class StudentService {
         }
       }
     ])
-    console.log(attendanceStats, 'attendanceStats')
     let present_days = 0
     let absent_days = 0
     let total_days = 0
@@ -64,12 +63,12 @@ export class StudentService {
     const attendance_percentage = total_days === 0 ? 0 : (present_days / total_days) * 100
 
     const [marks, fee, rechecking, certificate, studentTransportation, library] = await Promise.all([
-      models.Marks.find({ student_id: id }),
-      models.FeePayment.find({ student_id: id }),
-      models.Rechecking.find({ student_id: id }),
-      models.Certificate.find({ student_id: id }),
-      models.StudentTransportation.find({ student_id: id }),
-      models.Library.find({ student_id: id })
+      models.Marks.find({ student_id: id, isDeleted: false }),
+      models.FeePayment.find({ student_id: id, isDeleted: false }),
+      models.Rechecking.find({ student_id: id, isDeleted: false }),
+      models.Certificate.find({ student_id: id, isDeleted: false }),
+      models.StudentTransportation.find({ student_id: id, isDeleted: false }).populate('bus'),
+      models.Library.find({ student_id: id, isDeleted: false })
     ])
 
     return {
@@ -77,7 +76,8 @@ export class StudentService {
       attendance: {
         present_days,
         absent_days,
-        attendance_percentage: Number(attendance_percentage.toFixed(2))
+        attendance_percentage: Number(attendance_percentage.toFixed(2)),
+        attendance
       },
       marks,
       fee,

@@ -3,6 +3,7 @@ import {
   CommonLogin,
   CommonSignup
 } from '@/api-handlers/auth'
+import { Skeleton } from '@/components/ui/skeleton'
 import { toast } from '@/components/ui/use-toast'
 import { IAuthUser  } from '@/interface/AuthUser'
 import axios from 'axios'
@@ -44,7 +45,7 @@ export default function AuthProvider(props: IAuthContextProvider) {
 
   const userDefaultRedirection = (userData: IAuthUser ) => {
     // Uncomment below if email verification check is needed
-    // if (!userData?.isVerified) return router.push('/otp-verification')
+    if (!userData?.isVerified) return router.push('/otp-verification')
     return router.push('/dashboard')
   }
 
@@ -82,9 +83,7 @@ export default function AuthProvider(props: IAuthContextProvider) {
       })
 
       const accessToken = data?.token || data?.data?.token || data?.user?.token
-      console.log('Access Token:', accessToken)
       const userData = data?.user || data?.data?.user
-      console.log('User Data:', userData)
 
       if (accessToken) {
         localStorage.setItem('accessToken', accessToken)
@@ -104,18 +103,14 @@ export default function AuthProvider(props: IAuthContextProvider) {
 
   const { mutateAsync: handleRefetchUser  } = useMutation(fetchCurrentUser , {
     onSuccess: (data: any) => {
-      console.log('Fetched user data:', data)
       const accessToken = data?.token || data?.data?.token || data?.user?.token
-      console.log('Access Token:', accessToken)
       const userData = data?.user || data?.data?.user
-      console.log('User Data:', userData)
       if (accessToken) {
         localStorage.setItem('accessToken', accessToken)
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
       }
       
       setUser (userData)
-      console.log('User:', userData)
       setAuthLoading(false)
     },
     onError: (error: any) => {
@@ -163,7 +158,6 @@ export default function AuthProvider(props: IAuthContextProvider) {
   }, [])
 
   useEffect(() => {
-    console.log('AuthContext: useEffect', authLoading, user)
     if (!authLoading) {
       if (props.isAuthRoute && user) {
         userDefaultRedirection(user)
@@ -175,7 +169,23 @@ export default function AuthProvider(props: IAuthContextProvider) {
     }
   }, [props.isSecureRoute, props.isAuthRoute, props.isPublicRoute, authLoading, user])
 
-  if (authLoading) return <>Loading...</>
+  if (authLoading) {
+      return (
+        <div className="container mx-auto p-4 max-w-5xl">
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <Skeleton className="h-20 w-20 rounded-full" />
+              <div className="space-y-2">
+                <Skeleton className="h-6 w-40" />
+                <Skeleton className="h-4 w-20" />
+              </div>
+            </div>
+            <Skeleton className="h-10 w-full" />
+            <Skeleton className="h-64 w-full" />
+          </div>
+        </div>
+      );
+  }
 
   return (
     <AuthContext.Provider

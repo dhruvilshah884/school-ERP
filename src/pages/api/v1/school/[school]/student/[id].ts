@@ -8,7 +8,7 @@ import nextConnect from 'next-connect'
 const studentService = new StudentService()
 export default nextConnect()
   .use(dbConnectMiddleware)
-  .use(authCheckMiddleware)
+  // .use(authCheckMiddleware)
   .get(async (req: NextApiRequestWithUser, res: NextApiResponse) => {
     try {
       const student = await studentService.getAllDetailsByStudentId(req.query.id as string)
