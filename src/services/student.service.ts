@@ -36,8 +36,6 @@ export class StudentService {
     return students
   }
   public async getAllDetailsByStudentId(id: string): Promise<any> {
-    // student / attendance / marks / fee / assignment / rechecking / certificate / studentTransportation / library / bus
-
     const student = await this.student.findById(id).populate('user_id').populate('school').populate('class_id')
     if (!student) {
       throw new Error('Student not found')
