@@ -61,3 +61,4 @@ export const models = {
   Bus: BusModel,
   StudentTransportation: StudentTransportationModel
 }
+// parent ==> student , attendance , marks , feePayment , leave , recheking , gatePass , digitalId , certificate , library , bus , studentTransportation
