@@ -59,4 +59,14 @@ export class StudentTransportationService {
       throw new Error(`Error fetching student transportation by student ID: ${error}`)
     }
   }
+  public async getStudentTransportationByBusId(busId: string) {
+    try {
+      const studentTransportation = await models.StudentTransportation.find({ bus: busId }).populate(
+        'student_id bus class_id'
+      )
+      return studentTransportation
+    } catch (error) {
+      throw new Error(`Error fetching student transportation by bus ID: ${error}`)
+    }
+  }
 }
