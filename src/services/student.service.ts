@@ -1,4 +1,5 @@
 import { models } from '@/models'
+import { Types } from 'mongoose'
 
 export class StudentService {
   private student = models.Student
@@ -35,21 +36,49 @@ export class StudentService {
     const students = await this.student.find({ class_id: classId })
     return students
   }
-  public async getAllDetailsByStudentId(id: string): Promise<any> {
+  public async getAllDetailsByStudentId(id: string) {
     const student = await this.student.findById(id).populate('user_id').populate('school').populate('class_id')
-    if (!student) {
-      throw new Error('Student not found')
+
+    if (!student) throw new Error('Student not found')
+
+    const attendanceStats = await models.Attendance.aggregate([
+      { $match: { student_id: new Types.ObjectId(id), isDeleted: false } },
+      {
+        $group: {
+          _id: '$status',
+          count: { $sum: 1 }
+        }
+      }
+    ])
+    console.log(attendanceStats, 'attendanceStats')
+    let present_days = 0
+    let absent_days = 0
+    let total_days = 0
+
+    for (const row of attendanceStats) {
+      if (row._id === 'PRESENT') present_days = row.count
+      if (row._id === 'ABSENT') absent_days = row.count
+      total_days += row.count
     }
-    const attendance = await models.Attendance.find({ student_id: id })
-    const marks = await models.Marks.find({ student_id: id })
-    const fee = await models.FeePayment.find({ student_id: id })
-    const rechecking = await models.Rechecking.find({ student_id: id })
-    const certificate = await models.Certificate.find({ student_id: id })
-    const studentTransportation = await models.StudentTransportation.find({ student_id: id })
-    const library = await models.Library.find({ student_id: id })
+
+    const attendance_percentage = total_days === 0 ? 0 : (present_days / total_days) * 100
+
+    const [marks, fee, rechecking, certificate, studentTransportation, library] = await Promise.all([
+      models.Marks.find({ student_id: id }),
+      models.FeePayment.find({ student_id: id }),
+      models.Rechecking.find({ student_id: id }),
+      models.Certificate.find({ student_id: id }),
+      models.StudentTransportation.find({ student_id: id }),
+      models.Library.find({ student_id: id })
+    ])
+
     return {
       student,
-      attendance,
+      attendance: {
+        present_days,
+        absent_days,
+        attendance_percentage: Number(attendance_percentage.toFixed(2))
+      },
       marks,
       fee,
       rechecking,
