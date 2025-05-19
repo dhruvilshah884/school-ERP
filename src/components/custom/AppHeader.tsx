@@ -72,7 +72,7 @@ const AppHeader: React.FC = () => {
         <div className='flex items-center gap-4'>
           <div className='flex items-center gap-4'>
             <div className='flex items-center gap-2'>
-              <p className='text-sm text-gray-600 dark:text-gray-300'>Welcome Back {user?.name}!!! {greeting}</p>
+              <h1 className='text-lg text-gray-600 dark:text-gray-300'>Welcome Back {user?.name}!!! {greeting}</h1>
             </div>
           </div>
         </div>
