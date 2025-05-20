@@ -1,17 +1,24 @@
 'use client'
-import React, { useState, useEffect, useContext } from 'react'
-import { ChevronLeft, ChevronRight, Pencil, Trash2, Plus, Eye } from 'lucide-react'
+import React, { useState, useContext } from 'react'
+import { Pencil, Trash2, Plus, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table'
 import DashboardLayout from '@/layouts/DashboardLayout'
 import { useRouter } from 'next/router'
 import { useToast } from '@/hooks/use-toast'
 import { AuthContext } from '@/context/AuthContext'
 import { useQuery, useMutation } from 'react-query'
-import { ApiResponse } from '@/interface/ApiResponse'
 import { deleteStudent, getStudents } from '@/api-handlers/student'
-import { IStudent } from '@/interface/Student'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -35,6 +42,7 @@ export default function StudentPage() {
   const [deleteStudentId, setDeleteStudentId] = useState<string | null>(null)
   const [studentName, setStudentName] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [selectedClass, setSelectedClass] = useState('')
 
   const { data: studentList, refetch } = useQuery(
     ['customerslist', schoolId, page],
@@ -72,9 +80,12 @@ export default function StudentPage() {
   const studentData = studentList?.students || []
 
   const filterStudents = studentData.filter((student: any) => {
-    const studentName = `${student.user_id?.name} ${student.user_id?.last_name}`
-    return studentName.toLowerCase().includes(searchTerm.toLowerCase())
+    const studentName = `${student.user_id?.name} ${student.user_id?.last_name}`.toLowerCase()
+    const matchesName = studentName.includes(searchTerm.toLowerCase())
+    const matchesClass = selectedClass === '' || student.class_id?.name === selectedClass
+    return matchesName && matchesClass
   })
+
   return (
     <div className='ml-8 mr-8'>
       <PageBreadcrumb pageTitle='Students' />
@@ -90,9 +101,26 @@ export default function StudentPage() {
         >
           {' '}
           <div className='flex items-center space-x-2'>
+            <Select onValueChange={value => setSelectedClass(value)}>
+              <SelectTrigger className='w-[180px]'>
+                <SelectValue placeholder='Select a class' />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Classes</SelectLabel>
+                  <SelectItem value='all'>All Classes</SelectItem>
+                  {[...new Set(studentData.map((s: any) => s.class_id?.name))].map((className: any) => (
+                    <SelectItem key={className} value={className}>
+                      {className}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
             <Input
               type='search'
-              placeholder='Search by name, case number, or diagnosis...'
+              placeholder='Search by name...'
               className='pl-8'
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
@@ -123,7 +151,7 @@ export default function StudentPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody className='divide-y divide-gray-100 dark:divide-white/[0.05]'>
-                    {studentData.map((item: any) => (
+                    {filterStudents.map((item: any) => (
                       <TableRow key={item._id} className='border-b last:border-b-0'>
                         <TableCell className='py-2 px-5 text-sm '>{item.user_id?.name}</TableCell>
                         <TableCell className='py-2 px-5 text-sm '>{item.user_id?.gender}</TableCell>

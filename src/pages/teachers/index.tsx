@@ -68,7 +68,10 @@ export default function TeacherPage() {
   })
 
   const teacherData = teacherList?.data || []
-  console.log(teacherData, 'teacherdata')
+  const filterTeacher = teacherData.filter((teacher: any) => {
+    const teacherName = `${teacher.user_id?.name} ${teacher.user_id?.last_name}`
+    return teacherName.toLowerCase().includes(searchTerm.toLowerCase())
+  })
 
   return (
     <div className='ml-8 mr-8'>
@@ -121,7 +124,7 @@ export default function TeacherPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody className='divide-y divide-gray-100 dark:divide-white/[0.05]'>
-                    {teacherData.map((item: any) => (
+                    {filterTeacher.map((item: any) => (
                       <TableRow key={item._id} className='border-b last:border-b-0'>
                         <TableCell className='py-2 px-5 text-sm '>{item.user_id?.name}</TableCell>
                         <TableCell className='py-2 px-5 text-sm '>{item.user_id?.gender}</TableCell>
