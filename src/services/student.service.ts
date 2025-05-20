@@ -89,11 +89,7 @@ export class StudentService {
       },
       { $unwind: '$exam' }
     ])
-    await Promise.all(
-      marksAgg.map(exam =>
-        models.Marks.populate(exam.rows, { path: "subject_id" })
-      )
-    );
+    await Promise.all(marksAgg.map(exam => models.Marks.populate(exam.rows, { path: 'subject_id' })))
 
     const [fee, rechecking, certificate, studentTransportation, library] = await Promise.all([
       models.FeePayment.find({ student_id: id, isDeleted: false }),
