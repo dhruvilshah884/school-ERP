@@ -6,7 +6,7 @@ const recheckinhSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
-    student_id:{
+    student_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Student'
     },
@@ -37,6 +37,9 @@ const recheckinhSchema = new mongoose.Schema(
     isDeleted: {
       type: Boolean,
       default: false
+    },
+    marks: {
+      type: String
     }
   },
   {

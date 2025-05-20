@@ -48,9 +48,7 @@ export default function StudentDetailsPage() {
   )
 
   const studentDetails = studentData?.student?.student || {}
-  console.log(studentData, 'studentData')
   const attendance = studentData?.student?.attendance || []
-  console.log(attendance, 'attendance')
   const certificates = studentData?.student?.certificate || []
   const libraryRecords = studentData?.student?.library || []
   const marks = studentData?.student?.marks || []
