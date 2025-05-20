@@ -45,7 +45,7 @@ export default function AuthProvider(props: IAuthContextProvider) {
 
   const userDefaultRedirection = (userData: IAuthUser ) => {
     // Uncomment below if email verification check is needed
-    if (!userData?.isVerified) return router.push('/otp-verification')
+    // if (!userData?.isVerified) return router.push('/otp-verification')
     return router.push('/dashboard')
   }
 
