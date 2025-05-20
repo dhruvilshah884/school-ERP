@@ -97,7 +97,7 @@ export class StudentService {
 
     const [fee, rechecking, certificate, studentTransportation, library] = await Promise.all([
       models.FeePayment.find({ student_id: id, isDeleted: false }),
-      models.Rechecking.find({ student_id: id, isDeleted: false }),
+      models.Rechecking.find({ student_id: id, isDeleted: false }).populate('subject_id exam_id approved_by'),
       models.Certificate.find({ student_id: id, isDeleted: false }),
       models.StudentTransportation.find({ student_id: id, isDeleted: false }).populate('bus'),
       models.Library.find({ student_id: id, isDeleted: false })

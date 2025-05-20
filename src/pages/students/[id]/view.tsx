@@ -33,6 +33,7 @@ import PageBreadcrumb from '@/components/ui/PageBreadCrumb'
 import ComponentCard from '@/components/ui/ComponentCard'
 import { getStudent } from '@/api-handlers/student'
 import { Progress } from '@/components/ui/progress'
+import { generateStudentReport } from '@/lib/studentReportGenerator'
 
 export default function StudentDetailsPage() {
   const [activeTab, setActiveTab] = useState('details')
@@ -586,7 +587,7 @@ export default function StudentDetailsPage() {
               </CardContent>
               <CardFooter className='flex justify-between'>
                 <Button variant='outline'>Edit Student</Button>
-                <Button>
+                <Button onClick={() => generateStudentReport(schoolId, studentId)}>
                   <Download className='mr-2 h-4 w-4' />
                   Download Profile
                 </Button>
