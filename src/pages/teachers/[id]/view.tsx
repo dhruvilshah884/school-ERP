@@ -4,7 +4,7 @@ import { useContext, useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -235,14 +235,60 @@ export default function TeacherDetailsPage() {
                       )}
                     </div>
                   </TabsContent>
+                  {/* Assignments Tab */}
+                  <TabsContent value='assignments' className='mt-4'>
+                    {assignments && assignments.length > 0 ? (
+                      <div className='space-y-4'>
+                        {assignments.map((assignment: any) => (
+                          <Card key={assignment._id}>
+                            <CardHeader>
+                              <CardTitle>{assignment.title || 'Untitled Assignment'}</CardTitle>
+                              <CardDescription>Due Date: {formatDate(assignment.due_date)}</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                              <p>{assignment.description || 'No description available.'}</p>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className='flex flex-col items-center justify-center py-12 bg-muted/20 rounded-lg'>
+                        <h3 className='text-lg font-medium'>No Assignments</h3>
+                        <p className='text-sm text-muted-foreground mt-2'>No assignment records found.</p>
+                      </div>
+                    )}
+                  </TabsContent>
+
+                  {/* Subjects Tab */}
+                  <TabsContent value='subject' className='mt-4'>
+                    {subject && subject.length > 0 ? (
+                      <div className='space-y-4'>
+                        {subject.map((subj: any) => (
+                          <Card key={subj._id}>
+                            <CardHeader>
+                              <CardTitle>{subj.name}</CardTitle>
+                              <CardDescription>
+                                Class: {subj.class_id?.name} ({subj.class_id?.acadamic_year})
+                              </CardDescription>
+                            </CardHeader>
+                          </Card>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className='flex flex-col items-center justify-center py-12 bg-muted/20 rounded-lg'>
+                        <h3 className='text-lg font-medium'>No Subjects</h3>
+                        <p className='text-sm text-muted-foreground mt-2'>No subject records found for this teacher.</p>
+                      </div>
+                    )}
+                  </TabsContent>
                 </Tabs>
               </CardContent>
               <CardFooter className='flex justify-between'>
                 <Button variant='outline'>Edit Teacher</Button>
-                {/* <Button onClick={() => generateStudentReport(schoolId, studentId)}>
+                <Button>
                   <Download className='mr-2 h-4 w-4' />
                   Download Profile
-                </Button> */}
+                </Button>
               </CardFooter>
             </div>
           )}
