@@ -43,6 +43,7 @@ export default function StudentPage() {
   const [studentName, setStudentName] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedClass, setSelectedClass] = useState('')
+  const [selectedGender, setSelectedGender] = useState('')
 
   const { data: studentList, refetch } = useQuery(
     ['customerslist', schoolId, page],
@@ -83,7 +84,9 @@ export default function StudentPage() {
     const studentName = `${student.user_id?.name} ${student.user_id?.last_name}`.toLowerCase()
     const matchesName = studentName.includes(searchTerm.toLowerCase())
     const matchesClass = selectedClass === '' || student.class_id?.name === selectedClass
-    return matchesName && matchesClass
+    const matchesGender = selectedGender === '' || student.user_id.gender === selectedGender
+
+    return matchesName && matchesClass && matchesGender
   })
 
   return (
@@ -108,12 +111,24 @@ export default function StudentPage() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Classes</SelectLabel>
-                  <SelectItem value='all'>All Classes</SelectItem>
                   {[...new Set(studentData.map((s: any) => s.class_id?.name))].map((className: any) => (
                     <SelectItem key={className} value={className}>
                       {className}
                     </SelectItem>
                   ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
+            <Select onValueChange={value => setSelectedGender(value)}>
+              <SelectTrigger className='w-[180px]'>
+                <SelectValue placeholder='Select a gender' />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Gender</SelectLabel>
+                  <SelectItem value='male'>Male</SelectItem>
+                  <SelectItem value='Female'>Female</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
