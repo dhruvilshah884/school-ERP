@@ -89,6 +89,12 @@ export default function StudentPage() {
     return matchesName && matchesClass && matchesGender
   })
 
+  const resetFilters = () => {
+    setSelectedClass('')
+    setSelectedGender('')
+    setSearchTerm('')
+  }
+
   return (
     <div className='ml-8 mr-8'>
       <PageBreadcrumb pageTitle='Students' />
@@ -133,10 +139,19 @@ export default function StudentPage() {
               </SelectContent>
             </Select>
 
+            {(selectedClass || selectedGender) && (
+              <button
+                onClick={resetFilters}
+                className='text-sm text-gray-500 hover:text-gray-700 dark:text-white/[0.60] dark:hover:text-white'
+              >
+                Remove Filter
+              </button>
+            )}
+
             <Input
               type='search'
               placeholder='Search by name...'
-              className='pl-8'
+              className='pl-5'
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
