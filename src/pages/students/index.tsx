@@ -128,7 +128,7 @@ export default function StudentPage() {
                 <SelectGroup>
                   <SelectLabel>Gender</SelectLabel>
                   <SelectItem value='male'>Male</SelectItem>
-                  <SelectItem value='Female'>Female</SelectItem>
+                  <SelectItem value='female'>Female</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

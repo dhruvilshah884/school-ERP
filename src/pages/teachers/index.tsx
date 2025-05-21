@@ -22,6 +22,15 @@ import {
 } from '@/components/ui/alert-dialog'
 import PageBreadcrumb from '@/components/ui/PageBreadCrumb'
 import ComponentCard from '@/components/ui/ComponentCard'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
 
 export default function TeacherPage() {
   const router = useRouter()
@@ -33,6 +42,7 @@ export default function TeacherPage() {
   const [deleteTeacherId, setDeleteTeacherId] = useState<string | null>(null)
   const [teacherName, setTeacherName] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [selectedGender, setSelectedGender] = useState('')
 
   const { data: teacherList, refetch } = useQuery(
     ['TeacherList', schoolId, page],
@@ -70,7 +80,8 @@ export default function TeacherPage() {
   const teacherData = teacherList?.data || []
   const filterTeacher = teacherData.filter((teacher: any) => {
     const teacherName = `${teacher.user_id?.name} ${teacher.user_id?.last_name}`
-    return teacherName.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesGender = selectedGender === '' || teacher.user_id.gender === selectedGender
+    return teacherName.toLowerCase().includes(searchTerm.toLowerCase()) && matchesGender
   })
 
   return (
@@ -88,6 +99,20 @@ export default function TeacherPage() {
         >
           {' '}
           <div className='flex items-center space-x-2'>
+
+          <Select onValueChange={value => setSelectedGender(value)}>
+              <SelectTrigger className='w-[180px]'>
+                <SelectValue placeholder='Select a gender' />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Gender</SelectLabel>
+                  <SelectItem value='male'>Male</SelectItem>
+                  <SelectItem value='female'>Female</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
             <Input
               type='search'
               placeholder='Search by name...'
