@@ -83,6 +83,9 @@ export default function TeacherPage() {
     const matchesGender = selectedGender === '' || teacher.user_id.gender === selectedGender
     return teacherName.toLowerCase().includes(searchTerm.toLowerCase()) && matchesGender
   })
+  const resetFilters = () => {
+    setSelectedGender('')
+  }
 
   return (
     <div className='ml-8 mr-8'>
@@ -99,8 +102,7 @@ export default function TeacherPage() {
         >
           {' '}
           <div className='flex items-center space-x-2'>
-
-          <Select onValueChange={value => setSelectedGender(value)}>
+            <Select onValueChange={value => setSelectedGender(value)}>
               <SelectTrigger className='w-[180px]'>
                 <SelectValue placeholder='Select a gender' />
               </SelectTrigger>
@@ -112,6 +114,15 @@ export default function TeacherPage() {
                 </SelectGroup>
               </SelectContent>
             </Select>
+
+            {selectedGender && (
+              <button
+                onClick={resetFilters}
+                className='text-sm text-gray-500 hover:text-gray-700 dark:text-white/[0.60] dark:hover:text-white'
+              >
+                Remove Filter
+              </button>
+            )}
 
             <Input
               type='search'

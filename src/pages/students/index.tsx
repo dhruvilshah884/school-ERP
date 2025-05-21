@@ -92,7 +92,6 @@ export default function StudentPage() {
   const resetFilters = () => {
     setSelectedClass('')
     setSelectedGender('')
-    setSearchTerm('')
   }
 
   return (
